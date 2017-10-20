@@ -54,6 +54,7 @@ public class Juego extends InterfaceJuego
 	 */
 	public void tick()
 	{
+		/*Cuento los ticks y los segundos de juego*/
 		contarTiempo();
 		
 		/* Dibujo el mapa, el agente y el HUD */
