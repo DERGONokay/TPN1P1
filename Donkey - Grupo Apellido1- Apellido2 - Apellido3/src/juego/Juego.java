@@ -56,6 +56,7 @@ public class Juego extends InterfaceJuego
 	{
 		/*Cuento los ticks y los segundos de juego*/
 		contarTiempo();
+		contarTiempo(); //eliminar esto, solo es una prueba para probar github
 		
 		/* Dibujo el mapa, el agente y el HUD */
 		dibujarCosas();
