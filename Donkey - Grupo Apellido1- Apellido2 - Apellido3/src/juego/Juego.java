@@ -54,10 +54,22 @@ public class Juego extends InterfaceJuego
 	 */
 	public void tick()
 	{
+
 		/*Cuento los ticks y los segundos de juego*/
-		contarTiempo();
-		contarTiempo(); //eliminar esto, solo es una prueba para probar github
+		/*Inicio la pantalla inicial del juego*/
+		//iniciarMenu();
 		
+		/*Inicio el juego*/
+		iniciarJuego();
+		
+		/*Muestro la pantalla final*/
+		//iniciarTablaPuntuacion(puntaje,tiempo,vidas);
+	}
+	private void iniciarJuego()
+	{
+		/*Cuento el tiempo*/
+		contarTiempo();
+				
 		/* Dibujo el mapa, el agente y el HUD */
 		dibujarCosas();
 		
@@ -104,8 +116,7 @@ public class Juego extends InterfaceJuego
 			barril = new Barril();
 		}
 	}
-	
-	public void contarTiempo()
+	private void contarTiempo()
 	{
 		/* Cuento los ticks*/
 		tick++;
@@ -115,7 +126,7 @@ public class Juego extends InterfaceJuego
 			tiempo--;
 		}
 	}
-	public void dibujarCosas()
+	private void dibujarCosas()
 	{
 		mapa.dibujarse(entorno);
 		barril.dibujarse(entorno);
@@ -125,7 +136,7 @@ public class Juego extends InterfaceJuego
 			agente.dibujarse(entorno);
 		}
 	}
-	public void moverDerecha()
+	private void moverDerecha()
 	{
 		agente.moverDerecha();
 		if(!Agente.posValida(agente,entorno,mapa.getVigas(),mapa.getEscaleras()))
@@ -133,7 +144,7 @@ public class Juego extends InterfaceJuego
 			agente.moverIzquierda();
 		}
 	}
-	public void moverIzquierda()
+	private void moverIzquierda()
 	{
 		agente.moverIzquierda();
 		if(!Agente.posValida(agente, entorno, mapa.getVigas(), mapa.getEscaleras()))
@@ -141,7 +152,7 @@ public class Juego extends InterfaceJuego
 			agente.moverDerecha();
 		}
 	}
-	public void subir()
+	private void subir()
 	{
 		for(int i = 0 ; i < mapa.getEscaleras().length ; i++)//verifico que esté tocando alguna escalera
 		{
@@ -155,7 +166,7 @@ public class Juego extends InterfaceJuego
 			agente.bajar();
 		}
 	}
-	public void bajar()
+	private void bajar()
 	{
 		agente.bajar();
 		if(!Agente.posValida(agente, entorno, mapa.getVigas(), mapa.getEscaleras()))
@@ -163,7 +174,7 @@ public class Juego extends InterfaceJuego
 			agente.subir();
 		}
 	}
-	public void saltar()
+	private void saltar()
 	{
 		/* flag */
 		boolean saltar = false;
@@ -189,7 +200,7 @@ public class Juego extends InterfaceJuego
 			agente.saltar();
 		}
 	}
-	public void aplicarGravedad()
+	private void aplicarGravedad()
 	{
 		agente.gravedad(mapa.getVigas(), mapa.getEscaleras());
 		barril.gravedad(mapa.getVigas());
