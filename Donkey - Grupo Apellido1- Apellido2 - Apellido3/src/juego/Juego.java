@@ -52,7 +52,14 @@ public class Juego extends InterfaceJuego
 	 */
 	public void tick()
 	{
+		/*Inicio la pantalla inicial del juego*/
+		//iniciarMenu();
+		
+		/*Inicio el juego*/
 		iniciarJuego();
+		
+		/*Muestro la pantalla final*/
+		//iniciarTablaPuntuacion(puntaje,tiempo,vidas);
 	}
 	private void iniciarJuego()
 	{
