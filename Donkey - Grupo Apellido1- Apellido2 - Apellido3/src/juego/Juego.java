@@ -17,7 +17,6 @@ public class Juego extends InterfaceJuego
 	Mapa mapa;
 	Agente agente;
 	Barril barril;
-	Hud hud;
 	int tiempo;
 	int puntos;
 	int tick;
@@ -35,7 +34,6 @@ public class Juego extends InterfaceJuego
 		mapa = new Mapa();
 		agente = new Agente();
 		barril = new Barril();
-		hud = new Hud(agente.getVidas(),this.tiempo,this.puntos);
 		tiempo = 180;
 		tick = 0;
 		
@@ -117,7 +115,7 @@ public class Juego extends InterfaceJuego
 	{
 		mapa.dibujarse(entorno);
 		barril.dibujarse(entorno);
-		hud.dibujarse(entorno,agente.getVidas(),tiempo, puntos);
+		Hud.dibujarse(entorno,agente.getVidas(),tiempo, puntos);
 		if(agente != null)
 		{
 			agente.dibujarse(entorno);
