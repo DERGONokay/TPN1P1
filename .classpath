@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="Donkey - Grupo Apellido1- Apellido2 - Apellido3/src"/>
+	<classpathentry kind="src" path="Donkey - Grupo Lisas- Apellido2 - Apellido3/src"/>
+	<classpathentry kind="lib" path="Donkey - Grupo Apellido1- Apellido2 - Apellido3/entorno.jar"/>
+	<classpathentry kind="lib" path="Donkey - Grupo Lisas- Apellido2 - Apellido3/entorno.jar"/>
+	<classpathentry kind="output" path="Donkey - Grupo Apellido1- Apellido2 - Apellido3/bin"/>
+</classpath>
