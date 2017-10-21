@@ -118,6 +118,11 @@ public class Juego extends InterfaceJuego
 			barril = null;
 			barril = new Barril();
 		}
+		if (barril.tocaAgente(agente))
+		{
+			agente.restarVida();
+			agente.devolverAlInicio();
+		}
 		
 		/*Me fijo si el agente toca la fuga*/
 		if(mapa.getFugas().laToca(agente))

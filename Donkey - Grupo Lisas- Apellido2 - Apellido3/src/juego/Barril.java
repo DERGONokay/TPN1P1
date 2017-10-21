@@ -15,7 +15,7 @@ public class Barril
 	{
 		this.x = 0;
 		this.y = 50;
-		this.tam = 30;
+		this.tam = 15;
 		this.avanzando = true;
 	}
 	Barril(int x, int y)
@@ -96,6 +96,17 @@ public class Barril
 			this.y+=2;
 		}
 			
+	}
+	
+	boolean tocaAgente(Agente agente)
+	{
+		if (Colision.hayColision(this.x, this.y, this.tam, this.tam, agente.getX(), 
+				agente.getY(), agente.getAncho(), agente.getAltura()))
+				{
+					return true;
+				}
+		else
+			return false;
 	}
 	
 
