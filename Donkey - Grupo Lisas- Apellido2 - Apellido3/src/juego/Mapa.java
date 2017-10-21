@@ -19,16 +19,16 @@ public class Mapa
 		
 		/*Escaleras enteras*/
 		escaleras[0] = new Escalera(715,600-65,100,20,false);
-		escaleras[1] = new Escalera(135,500-65,100,20,false);
+		escaleras[1] = new Escalera(85,500-65,100,20,false);
 		escaleras[2] = new Escalera(715,400-65,100,20,false);
-		escaleras[3] = new Escalera(135,300-65,100,20,false);
+		escaleras[3] = new Escalera(85,300-65,100,20,false);
 		escaleras[4] = new Escalera(715,200-65,100,20,false);
 		/*Escaleras "rotas"*/
 		escaleras[5] = new Escalera(350,300-35,40,20,true);
 		escaleras[5].setTextura("EscaleraRota2.png");
 		
-		escaleras[6] = new Escalera(350,300-95,35,20,true);
-		escaleras[6].setTextura("EscaleraRota1.png");
+		escaleras[6] = new Escalera(350,300-98,35,20,true);
+		escaleras[6].setTextura("EscaleraRota3.png");
 		
 		escaleras[7] = new Escalera(550,200-95,40,20,true);
 		escaleras[7].setTextura("EscaleraRota1.png");
@@ -39,9 +39,9 @@ public class Mapa
 		/*Vigas*/
 		vigas[0]=new Viga(400, 600, 30, 1450);
 		vigas[1]=new Viga(0, 500, 30, 1450);
-		vigas[2]=new Viga(850, 400, 30, 1450);
+		vigas[2]=new Viga(800, 400, 30, 1450);
 		vigas[3]=new Viga(0, 300, 30, 1450);
-		vigas[4]=new Viga(850, 200, 30, 1450);
+		vigas[4]=new Viga(800, 200, 30, 1450);
 		vigas[5]=new Viga(0, 100, 30, 1450);
 		
 

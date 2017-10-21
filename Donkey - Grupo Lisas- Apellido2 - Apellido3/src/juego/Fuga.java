@@ -120,7 +120,7 @@ public class Fuga
 				this.x = entorno.ancho();
 			}
 			
-			numRandom = random.nextInt(entorno.alto());
+			numRandom = random.nextInt(entorno.alto()-115);
 			
 			this.y = numRandom;
 		}
