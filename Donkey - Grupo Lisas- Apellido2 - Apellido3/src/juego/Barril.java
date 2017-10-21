@@ -12,6 +12,7 @@ public class Barril
 	private int tam;
 	private boolean avanzando;
 	
+	/*Constructores */
 	Barril()
 	{
 		this.x = 0;
