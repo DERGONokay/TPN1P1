@@ -171,6 +171,7 @@ public class Agente
 	{
 		this.posicion.x = 50;
 		this.posicion.y = 550;
+		this.alturaSalto = 0;
 				
 	}
 	private void intercalarTextura()

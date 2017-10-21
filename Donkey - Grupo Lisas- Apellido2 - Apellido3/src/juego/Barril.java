@@ -15,14 +15,14 @@ public class Barril
 	{
 		this.x = 0;
 		this.y = 50;
-		this.tam = 15;
+		this.tam = 20;
 		this.avanzando = true;
 	}
-	Barril(int x, int y)
+	Barril(int x, int y, int tam)
 	{
 		this.x=x;
 		this.y=y;
-		this.tam=25;
+		this.tam= tam;
 		this.avanzando=true;
 	}
 	
@@ -100,11 +100,11 @@ public class Barril
 	
 	boolean tocaAgente(Agente agente)
 	{
-		if (Colision.hayColision(this.x, this.y, this.tam, this.tam, agente.getX(), 
-				agente.getY(), agente.getAncho(), agente.getAltura()))
-				{
-					return true;
-				}
+		if (Colision.hayColision(this.x, this.y, this.tam, this.tam, 
+			agente.getX(), agente.getY(), agente.getAncho(), agente.getAltura()))
+		{
+			return true;
+		}
 		else
 			return false;
 	}
