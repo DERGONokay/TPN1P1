@@ -27,7 +27,6 @@ public class Mapa
 		escaleras[5] = new Escalera(350,300-35,40,20,true);
 		escaleras[5].setTextura("EscaleraRota2.png");
 		
-//		escaleras[6] = new Escalera(350,300-98,35,20,true);
 		escaleras[6] = new Escalera(350,300-98,35,20,true);
 		escaleras[6].setTextura("EscaleraRota3.png");
 		
