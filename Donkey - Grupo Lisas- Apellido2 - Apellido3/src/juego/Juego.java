@@ -15,6 +15,7 @@ public class Juego extends InterfaceJuego
 	
 	// Variables y métodos propios de cada grupo
 	Mapa mapa;
+	Donkey donkey;
 	Agente agente;
 	Barril barril;
 	int tiempo;
@@ -32,6 +33,7 @@ public class Juego extends InterfaceJuego
 		
 		// Inicializar lo que haga falta para el juego
 		mapa = new Mapa();
+		donkey = new Donkey();
 		agente = new Agente();
 		barril = new Barril();
 		tiempo = 180;
@@ -70,6 +72,9 @@ public class Juego extends InterfaceJuego
 				
 		/* Dibujo el mapa, el agente y el HUD */
 		dibujarCosas();
+		
+		/* Dibujo de Donkey */
+		donkey.mostrar(entorno);
 		
 		/* Movimiento de los barriles */
 		barril.moverse(entorno.ancho());
