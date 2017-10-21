@@ -6,6 +6,7 @@ import entorno.Entorno;
 
 public class Barril 
 {
+	/* Variables de instancia */
 	private int x;
 	private int y;
 	private int tam;
