@@ -18,7 +18,7 @@ public class Juego extends InterfaceJuego
 	Mapa mapa;
 	Donkey donkey;
 	Agente agente;
-	Barril barril;
+	Barril[] barriles;
 	int tiempo;
 	int puntos;
 	int tick;
@@ -40,10 +40,12 @@ public class Juego extends InterfaceJuego
 		mapa = new Mapa();
 		donkey = new Donkey();
 		agente = new Agente();
-		barril = new Barril();
+		barriles = new Barril[5];
+		inicializarBarriles();
 		tiempo = 180;
 		tick = 0;
 		jugando = true; // cambiar cuando se haga la pantalla de inicio
+		
 		
 		sonidoSalto = "C:\\Users\\Ariana\\Desktop\\Damian\\mario-bros-jump.mp3";
 		
@@ -92,15 +94,18 @@ public class Juego extends InterfaceJuego
 		jugando = true;
 		/*Cuento el tiempo y sumo puntos*/
 		contarTiempo();
+		sumarPuntos();
 				
 		/* Dibujo el mapa, el agente y el HUD */
 		dibujarCosas();
 		
 		/* Dibujo de Donkey */
 		donkey.mostrar(entorno);
+		lanzarBarril();
+		
 		
 		/* Movimiento de los barriles */
-		barril.moverse(entorno.ancho());
+		moverBarriles();
 		
 		/* movimiento del personaje -----------------------------------------------------------------------*/
 		/* Moverse a la derecha */
@@ -136,17 +141,10 @@ public class Juego extends InterfaceJuego
 		aplicarGravedad();
 		
 		/*Chequeo si el barril llega al final del mapa*/
-		if(barril.getY() > 500 && barril.getX() <= 0 )
-		{
-			barril = null;
-			barril = new Barril();
-		}
-		if (barril.tocaAgente(agente))
-		{
-			restarPuntos();
-			agente.restarVida();
-			agente.devolverAlInicio();
-		}
+		eliminarBarril();
+		
+		/* Chequeo si algun barril toca al agente*/
+		chequearColision();
 		
 		/*Me fijo si el agente toca la fuga*/
 		if(mapa.getFugas().laToca(agente))
@@ -154,6 +152,45 @@ public class Juego extends InterfaceJuego
 			restarPuntos();
 			agente.restarVida();
 			agente.devolverAlInicio();
+		}
+	}
+	private void moverBarriles()
+	{
+		for(int i = 0 ; i < barriles.length ; i++)
+		{
+			if(barriles[i] != null && barriles[i].lanzado())
+			{
+				barriles[i].moverse(entorno.ancho());
+			}
+		}
+	}
+	private void eliminarBarril()
+	{
+		for(int i = 0 ; i < barriles.length ; i++)
+		{
+			if(barriles[i] != null)
+			{
+				if(barriles[i].getY() > 500 && barriles[i].getX() < 0)
+				{
+					barriles[i] = null;
+					barriles[i] = new Barril();
+				}
+			}
+		}
+	}
+	private void chequearColision()
+	{
+		for(int i = 0 ; i < barriles.length ; i++)
+		{
+			if(barriles[i] != null && barriles[i].lanzado())
+			{
+				if (barriles[i].tocaAgente(agente))
+				{
+					restarPuntos();
+					agente.restarVida();
+					agente.devolverAlInicio();
+				}
+			}
 		}
 	}
 	private void contarTiempo()
@@ -168,6 +205,7 @@ public class Juego extends InterfaceJuego
 	}
 	private void sumarPuntos()
 	{
+		System.out.println(tick);
 		/* +1 punto cada 50 ticks */
 		if(tick % 50 == 0)
 		{
@@ -183,10 +221,20 @@ public class Juego extends InterfaceJuego
 	{
 		puntos -= 100;
 	}
+	private void dibujarBarriles()
+	{
+		for(int i = 0 ; i < barriles.length ; i++)
+		{
+			if(barriles[i] != null && barriles[i].lanzado())
+			{
+				barriles[i].dibujarse(entorno);
+			}
+		}
+	}
 	private void dibujarCosas()
 	{
 		mapa.dibujarse(entorno);
-		barril.dibujarse(entorno);
+		dibujarBarriles();
 		Hud.dibujarse(entorno,agente.getVidas(),tiempo, puntos);
 		if(agente != null)
 		{
@@ -260,7 +308,31 @@ public class Juego extends InterfaceJuego
 	private void aplicarGravedad()
 	{
 		agente.gravedad(mapa.getVigas(), mapa.getEscaleras());
-		barril.gravedad(mapa.getVigas());
+		for(int i = 0 ; i < barriles.length ; i++)
+		{
+			if(barriles[i] != null && barriles[i].lanzado())
+			{
+				barriles[i].gravedad(mapa.getVigas());
+			}
+		}
+		
+	}
+	private void lanzarBarril()
+	{
+		for(int i = 0 ; i < barriles.length ; i++)
+		{
+			if(barriles[i] != null)
+			{
+				donkey.lanzarBarril(barriles[i]);
+			}
+		}
+	}
+	private void inicializarBarriles()
+	{
+		for(int i = 0 ; i < barriles.length ; i++)
+		{
+			barriles[i] = new Barril();
+		}
 	}
 	
 

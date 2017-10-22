@@ -11,6 +11,7 @@ public class Barril
 	private int y;
 	private int tam;
 	private boolean avanzando;
+	private boolean lanzado;
 	
 	/*Constructores */
 	Barril()
@@ -19,6 +20,7 @@ public class Barril
 		this.y = 50;
 		this.tam = 20;
 		this.avanzando = true;
+		this.lanzado = false;
 	}
 	Barril(int x, int y, int tam)
 	{
@@ -109,6 +111,14 @@ public class Barril
 		}
 		else
 			return false;
+	}
+	public boolean lanzado() 
+	{
+		return this.lanzado;
+	}
+	public void lanzar() 
+	{
+		this.lanzado = true;
 	}
 	
 

@@ -1,6 +1,8 @@
 package juego;
 
 import java.awt.*;
+import java.util.Random;
+
 import entorno.*;
 
 public class Donkey 
@@ -9,12 +11,14 @@ public class Donkey
 	private int altura;
 	private int ancho;
 	private Image textura;
+	private int chanceDeLanzar;
 	
 	public Donkey() // Constructor
 	{
 		this.posicion = new Point (110, 50);
 		this.altura = 80;
 		this.ancho = 55;
+		this.chanceDeLanzar = 0;
 		this.textura = Herramientas.cargarImagen("Donkey.png");
 	}
 	
@@ -49,6 +53,22 @@ public class Donkey
 		this.ancho = ancho;
 	}
 	//Getters & Setters FIN
+	public void lanzarBarril(Barril barril)
+	{
+		Random random = new Random();
+		int num1 = 0;
+		int num2 = random.nextInt(2);
+		if(num1 == num2)
+		{
+			this.chanceDeLanzar++;
+		}
+		
+		if(chanceDeLanzar >= 200)
+		{
+			barril.lanzar();
+			this.chanceDeLanzar = 0;
+		}
+	}
 	
 	
 }
