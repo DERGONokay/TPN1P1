@@ -19,6 +19,7 @@ public class Agente
 	private int intercalado;
 	private boolean elegirTextura;
 	private boolean pasoIntermedio;
+	private boolean subiendo;
 	
 	public Agente()  // Constructor de un PJ unico
 	{
@@ -35,6 +36,7 @@ public class Agente
 		this.textura = Herramientas.cargarImagen("Agente.png");
 		this.intercalado = 10;
 		this.elegirTextura = false;
+		this.subiendo = false;
 	}
 	
 	public int getX()
@@ -64,12 +66,16 @@ public class Agente
 	{
 		return this.vidas;
 	}
-	public void dibujarse(Entorno entorno)  // Dibuja al PJ
+	public void dibujarse(Entorno entorno, Escalera[] escaleras)  // Dibuja al PJ
 	{
 		entorno.dibujarRectangulo(posicion.x, posicion.y-(altura/2), this.ancho, this.altura, 0, Color.white);
-		if(!corriendo)
+		if(!corriendo && !subiendo)
 		{
 			dibujarseQuieto(entorno);	
+		}
+		else if(subiendo)
+		{
+			dibujarseSubiendo(entorno, escaleras);
 		}
 		else if(corriendo)
 		{
@@ -93,6 +99,7 @@ public class Agente
 	public void subir()
 	{
 		this.corriendo = false;
+		this.subiendo = true;
 		this.direccion = 'a';
 		this.posicion.y -= this.velocidadMovimiento;
 	}
@@ -100,6 +107,7 @@ public class Agente
 	{
 		direccion = 'a';
 		this.corriendo = false;
+		subiendo = true;
 		this.posicion.y += this.velocidadMovimiento;
 	}	
 	/* gravedad del personaje / gravedad invertida para el salto */
@@ -250,6 +258,29 @@ public class Agente
 			
 			this.corriendo = false;
 		}
+	}
+	private void dibujarseSubiendo(Entorno entorno, Escalera[] escaleras)
+	{
+		boolean toca = false;
+		
+		
+		for(int i = 0; i < escaleras.length ; i++)
+		{
+			if(escaleras[i].laToca(this))
+			{
+				toca = true;
+				break;
+			}
+		}
+		
+		if(toca)
+		{
+			this.setTextura("SubirEscalera1.png");
+		}
+			
+		entorno.dibujarImagen(this.textura, this.posicion.x, this.posicion.y-this.altura/2, 0);
+		
+		this.subiendo = false;
 	}
 	private void setTextura(String textura)
 	{

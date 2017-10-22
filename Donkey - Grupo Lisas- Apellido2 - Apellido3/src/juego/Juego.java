@@ -238,7 +238,7 @@ public class Juego extends InterfaceJuego
 		Hud.dibujarse(entorno,agente.getVidas(),tiempo, puntos);
 		if(agente != null)
 		{
-			agente.dibujarse(entorno);
+			agente.dibujarse(entorno, mapa.getEscaleras());
 		}
 	}
 	private void moverDerecha()
