@@ -12,8 +12,9 @@ public class Juego extends InterfaceJuego
 	// El objeto Entorno que controla el tiempo y otros
 	private Entorno entorno;
 
-	
 	// Variables y métodos propios de cada grupo
+	
+	/*Juego*/
 	Mapa mapa;
 	Donkey donkey;
 	Agente agente;
@@ -21,6 +22,10 @@ public class Juego extends InterfaceJuego
 	int tiempo;
 	int puntos;
 	int tick;
+	boolean jugando;
+	
+	/*Pantalla de puntuacion*/
+	PantallaDePuntuacion pantallaDePuntuacion;
 	
 	String sonidoSalto;
 	
@@ -38,6 +43,7 @@ public class Juego extends InterfaceJuego
 		barril = new Barril();
 		tiempo = 180;
 		tick = 0;
+		jugando = true; // cambiar cuando se haga la pantalla de inicio
 		
 		sonidoSalto = "C:\\Users\\Ariana\\Desktop\\Damian\\mario-bros-jump.mp3";
 		
@@ -60,14 +66,31 @@ public class Juego extends InterfaceJuego
 		//iniciarMenu();
 		
 		/*Inicio el juego*/
-		iniciarJuego();
-		
+		if(jugando && tiempo >= 0 && agente.getVidas() >= 0)
+		{
+			iniciarJuego();
+		}
 		/*Muestro la pantalla final*/
-		//iniciarTablaPuntuacion(puntaje,tiempo,vidas);
+		else
+		{
+			iniciarTablaPuntuacion(tiempo, puntos, agente.getVidas());	
+		}
+	}
+	private void iniciarTablaPuntuacion(int tiempo, int puntos, int vidas)
+	{
+		jugando = false;
+		pantallaDePuntuacion = new PantallaDePuntuacion(puntos,tiempo,vidas);
+		
+		
+		//To do: encapsular en clase: destruirJuego();
+
+		
+		pantallaDePuntuacion.dibujarse(entorno);
 	}
 	private void iniciarJuego()
 	{
-		/*Cuento el tiempo*/
+		jugando = true;
+		/*Cuento el tiempo y sumo puntos*/
 		contarTiempo();
 				
 		/* Dibujo el mapa, el agente y el HUD */
@@ -120,6 +143,7 @@ public class Juego extends InterfaceJuego
 		}
 		if (barril.tocaAgente(agente))
 		{
+			restarPuntos();
 			agente.restarVida();
 			agente.devolverAlInicio();
 		}
@@ -127,6 +151,7 @@ public class Juego extends InterfaceJuego
 		/*Me fijo si el agente toca la fuga*/
 		if(mapa.getFugas().laToca(agente))
 		{
+			restarPuntos();
 			agente.restarVida();
 			agente.devolverAlInicio();
 		}
@@ -140,6 +165,23 @@ public class Juego extends InterfaceJuego
 		{
 			tiempo--;
 		}
+	}
+	private void sumarPuntos()
+	{
+		/* +1 punto cada 50 ticks */
+		if(tick % 50 == 0)
+		{
+			puntos++;
+		}
+		/* +50 puntos por saltar un barril */
+//		if(agente.saltoBarril(barril))
+//		{
+//			puntos += 50;
+//		}
+	}
+	private void restarPuntos()
+	{
+		puntos -= 100;
 	}
 	private void dibujarCosas()
 	{
