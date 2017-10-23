@@ -1,6 +1,8 @@
 package juego;
 
+import java.awt.*;
 import entorno.Entorno;
+import entorno.Herramientas;
 
 public class Mapa 
 {
@@ -50,6 +52,7 @@ public class Mapa
 	void dibujarse(Entorno entorno)
 	{
 		fuga.dibujarse(entorno);
+		
 		
 		for (int i=0;i<vigas.length;i++)
 		{

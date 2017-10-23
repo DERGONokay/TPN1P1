@@ -68,7 +68,7 @@ public class Agente
 	}
 	public void dibujarse(Entorno entorno, Escalera[] escaleras)  // Dibuja al PJ
 	{
-		entorno.dibujarRectangulo(posicion.x, posicion.y-(altura/2), this.ancho, this.altura, 0, Color.white);
+		//entorno.dibujarRectangulo(posicion.x, posicion.y-(altura/2), this.ancho, this.altura, 0, Color.white);
 		if(!corriendo && !subiendo)
 		{
 			dibujarseQuieto(entorno);	

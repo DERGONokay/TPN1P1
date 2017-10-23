@@ -63,7 +63,7 @@ public class Escalera
 	 /*Dibuja una escalera en un entorno que se le pasa por parametro*/
 	public void dibujarse(Entorno entorno)
 	{
-		entorno.dibujarRectangulo(this.x, this.y, this.ancho, this.alto, 0, Color.orange);
+		//entorno.dibujarRectangulo(this.x, this.y, this.ancho, this.alto, 0, Color.orange);
 		entorno.dibujarImagen(this.textura, this.x, this.y, 0);
 
 	}
