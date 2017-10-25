@@ -101,7 +101,7 @@ public class Fuga
 	public void dibujarse(Entorno entorno)
 	{
 		entorno.dibujarRectangulo(this.x, this.y-this.alto, this.ancho, this.alto, 0, Color.green);
-		cambiarPosicion(entorno);
+//		cambiarPosicion(entorno);
 	}
 	
 	private void cambiarPosicion(Entorno entorno) 

@@ -176,7 +176,7 @@ public class Juego extends InterfaceJuego
 		{
 			if(barriles[i] != null && barriles[i].lanzado())
 			{
-				if (agente.colisionaCon(barriles[i].getX(), barriles[i].getY(), barriles[i].getTam(), barriles[i].getTam()))
+				if (agente.colisionaCon(barriles[i].getX(), barriles[i].getY(), barriles[i].getTam()/2, barriles[i].getTam()/2))
 				{
 					restarPuntos();
 					agente.restarVida();
