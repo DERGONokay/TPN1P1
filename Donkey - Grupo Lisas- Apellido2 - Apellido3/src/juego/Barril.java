@@ -101,17 +101,6 @@ public class Barril
 		}
 			
 	}
-	
-	boolean tocaAgente(Agente agente)
-	{
-		if (Colision.hayColision(this.x, this.y, this.tam, this.tam, 
-			agente.getX(), agente.getY(), agente.getAncho(), agente.getAltura()))
-		{
-			return true;
-		}
-		else
-			return false;
-	}
 	public boolean lanzado() 
 	{
 		return this.lanzado;
