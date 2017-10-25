@@ -143,16 +143,8 @@ public class Juego extends InterfaceJuego
 		/*Chequeo si el barril llega al final del mapa*/
 		eliminarBarril();
 		
-		/* Chequeo si algun barril toca al agente*/
+		/* Chequeo si el agente toca algun barril o la fuga*/
 		chequearColision();
-		
-		/*Me fijo si el agente toca la fuga*/
-		if(mapa.getFugas().laToca(agente))
-		{
-			restarPuntos();
-			agente.restarVida();
-			agente.devolverAlInicio();
-		}
 	}
 	private void moverBarriles()
 	{
@@ -184,13 +176,19 @@ public class Juego extends InterfaceJuego
 		{
 			if(barriles[i] != null && barriles[i].lanzado())
 			{
-				if (barriles[i].tocaAgente(agente))
+				if (agente.colisionaCon(barriles[i].getX(), barriles[i].getY(), barriles[i].getTam(), barriles[i].getTam()))
 				{
 					restarPuntos();
 					agente.restarVida();
 					agente.devolverAlInicio();
 				}
 			}
+		}
+		if(agente.colisionaCon(mapa.getFugas().getX(), mapa.getFugas().getY(), mapa.getFugas().getAncho(), mapa.getFugas().getAlto()))
+		{
+			restarPuntos();
+			agente.restarVida();
+			agente.devolverAlInicio();
 		}
 	}
 	private void contarTiempo()

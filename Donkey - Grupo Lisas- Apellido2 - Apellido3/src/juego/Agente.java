@@ -182,6 +182,39 @@ public class Agente
 		this.alturaSalto = 0;
 				
 	}
+	public boolean colisionaCon(int x, int y, int ancho, int alto)
+	{
+		Point[] puntosDelAgente = generarVertices(this.getX(), this.getY(), this.ancho, this.altura);
+		Point[] puntosDelObjeto = generarVertices(x, y, ancho, alto);
+		
+		boolean hayColision = false;
+		
+		for(int i = 0 ; i < puntosDelAgente.length ; i++)
+		{
+			if(estaDentro(puntosDelAgente[i],x,y,ancho,alto))
+			{
+				hayColision = true;
+				break;
+			}
+		}
+		for(int i = 0 ; i < puntosDelObjeto.length ; i++)
+		{
+			if(estaDentro(puntosDelObjeto[i],this.getX(),this.getY(),this.ancho,this.altura))
+			{
+				hayColision = true;
+				break;
+			}
+		}
+		
+		if(hayColision)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 	private void intercalarTextura()
 	{
 		if(this.intercalado <= 0)
@@ -320,5 +353,28 @@ public class Agente
 		}
 		
 		return posicion;
+	}
+	private static boolean estaDentro(Point p, int x, int y, int ancho, int alto)
+	{
+		if(p.x >= x-ancho/2 && p.x <= x+ancho/2
+				&& p.y >= y-alto/2 && p.y <= y+alto/2)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	private static Point[] generarVertices(int x, int y, int ancho, int alto)
+	{
+		Point[] retorno = new Point[4];
+		
+		retorno[0] = new Point(x-ancho/2, y-alto/2);
+		retorno[1] = new Point(x-ancho/2, y+alto/2);
+		retorno[2] = new Point(x+ancho/2, y-alto/2);
+		retorno[3] = new Point(x+ancho/2, y+alto/2);
+		
+		return retorno;
 	}
 }

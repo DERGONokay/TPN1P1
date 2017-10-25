@@ -135,11 +135,6 @@ public class Fuga
 	 * El personaje toca la fuga o la fuga toca al personaje*/
 	public boolean laToca(Agente agente)
 	{
-		if(Colision.hayColision(this.x, this.y, this.ancho, this.alto,
-				agente.getX(), agente.getY(), agente.getAncho(), agente.getAltura()))
-		{
-			return true;
-		}
 		return false;
 //		/* flag */
 //		boolean seTocan = false;
