@@ -17,7 +17,7 @@ public class Mapa
 		escaleras = new Escalera[9];
 		
 		/*Fuga*/
-		fuga = new Fuga(0,460,100,10,30);
+		fuga = new Fuga(0,460,100,20,30);
 		
 		/*Escaleras enteras */
 		escaleras[0] = new Escalera(715,600-65,100,20,false);

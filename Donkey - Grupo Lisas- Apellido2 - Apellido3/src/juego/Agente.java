@@ -5,28 +5,28 @@ import java.awt.*;
 
 public class Agente 
 {
-	private char direccion;
-	private boolean corriendo;
-	private Point posicion;
-	private int altura;
-	private int ancho;
-	private int velocidadMovimiento;
-	private boolean saltando;
-	private int potenciaSalto;
-	private int alturaSalto;
-	private int vidas;
-	private Image textura;
-	private int intercalado;
-	private boolean elegirTextura;
-	private boolean pasoIntermedio;
-	private boolean subiendo;
+	private Point posicion;			/*Posicion x e y del centro de la hit box del personaje*/
+	private int alto;				/*Alto de la hit box del personaje*/
+	private int ancho;				/*Ancho de la hit box del personje*/
+	private char direccion;			/*Define la direccion a la que se está moviendo el personaje*/
+	private boolean corriendo;		/*Define si el personaje esta corriendo*/
+	private int velocidadMovimiento;/*Velocidad de movimiento del personaje*/
+	private boolean saltando;		/*Define si el personaje está saltando*/
+	private int potenciaSalto;		/*Cuántos pixeles sube el personaje por tick*/
+	private int alturaSalto;		/*Durante cuantos ticks va a saltar el personaje*/
+	private int vidas;				/*Cantidad de vidas del personaje*/
+	private Image textura;			/*Textura del personaje*/
+	private int intercalado;		/*Contador que se usa para modificar la variable "elegirTextura"*/
+	private boolean elegirTextura;  /*Ayuda a intercalar las imagenes para crear "animaciones" */
+	private boolean pasoIntermedio; /*define si el personaje debe usar la imagen de "paso intermedio"*/
+	private boolean subiendo;       /*define si el personaje esta subiendo una escalera*/
 	
 	public Agente()  // Constructor de un PJ unico
 	{
 		this.direccion = 'd';
 		corriendo = false;
 		posicion = new Point (50, 550);
-		this.altura = 30;
+		this.alto = 30;
 		this.ancho = 15;
 		this.velocidadMovimiento = 1;
 		this.saltando = false;
@@ -43,17 +43,14 @@ public class Agente
 	{
 		return this.posicion.x;
 	}
-	
 	public int getY()
 	{
 		return this.posicion.y;
-	}
-	
-	public int getAltura()
+	}	
+	public int getAlto()
 	{
-		return this.altura;
+		return this.alto;
 	}
-	
 	public int getAncho()
 	{
 		return this.ancho;
@@ -69,6 +66,8 @@ public class Agente
 	public void dibujarse(Entorno entorno, Escalera[] escaleras)  // Dibuja al PJ
 	{
 		//entorno.dibujarRectangulo(posicion.x, posicion.y-(altura/2), this.ancho, this.altura, 0, Color.white);
+		
+		/* Dibujo al personaje dependiendo de que accion está realizando */
 		if(!corriendo && !subiendo)
 		{
 			dibujarseQuieto(entorno);	
@@ -81,33 +80,35 @@ public class Agente
 		{
 			dibujarseCorriendo(entorno);
 		}
+		
+		/*Intercalo la textura para crear "animaciones" */
 		intercalarTextura();
 			
 	}	
 	public void moverDerecha()
 	{
-		this.corriendo = true;
 		this.direccion = 'd';
+		this.corriendo = true;
 		this.posicion.x += this.velocidadMovimiento;
 	}
 	public void moverIzquierda()
 	{
-		this.corriendo = true;
 		this.direccion = 'i';
+		this.corriendo = true;
 		this.posicion.x -= this.velocidadMovimiento;
 	}
 	public void subir()
 	{
+		this.direccion = 'a';
 		this.corriendo = false;
 		this.subiendo = true;
-		this.direccion = 'a';
 		this.posicion.y -= this.velocidadMovimiento;
 	}
 	public void bajar()
 	{
-		direccion = 'a';
+		this.direccion = 'a';
 		this.corriendo = false;
-		subiendo = true;
+		this.subiendo = true;
 		this.posicion.y += this.velocidadMovimiento;
 	}	
 	/* gravedad del personaje / gravedad invertida para el salto */
@@ -184,7 +185,7 @@ public class Agente
 	}
 	public boolean colisionaCon(int x, int y, int ancho, int alto)
 	{
-		Point[] puntosDelAgente = generarVertices(this.getX(), this.getY(), this.ancho, this.altura);
+		Point[] puntosDelAgente = generarVertices(this.getX(), this.getY(), this.ancho, this.alto);
 		Point[] puntosDelObjeto = generarVertices(x, y, ancho, alto);
 		
 		boolean hayColision = false;
@@ -199,7 +200,7 @@ public class Agente
 		}
 		for(int i = 0 ; i < puntosDelObjeto.length ; i++)
 		{
-			if(estaDentro(puntosDelObjeto[i],this.getX(),this.getY(),this.ancho,this.altura))
+			if(estaDentro(puntosDelObjeto[i],this.getX(),this.getY(),this.ancho,this.alto))
 			{
 				hayColision = true;
 				break;
@@ -243,33 +244,44 @@ public class Agente
 		if(direccion == 'd')
 		{
 			this.setTextura("Agente.png");
-			entorno.dibujarImagen(this.textura, this.posicion.x, this.posicion.y-this.altura/2, 0);
+			entorno.dibujarImagen(this.textura, this.posicion.x, this.posicion.y-this.alto/2, 0);
 		}
 		else
 		{
 			this.setTextura("Agente2.png");
-			entorno.dibujarImagen(this.textura, this.posicion.x, this.posicion.y-this.altura/2, 0);
+			entorno.dibujarImagen(this.textura, this.posicion.x, this.posicion.y-this.alto/2, 0);
 		}
 	}
 	private void dibujarseCorriendo(Entorno entorno)
 	{
+		/*Si esta corriendo hacia la derecha: */
 		if(direccion == 'd')
 		{
-			Image pasoIntermedio = Herramientas.cargarImagen("Correr2.png");
+			
+			Image pasoIntermedio = Herramientas.cargarImagen("Correr2.png");//cargo la imagen del paso intermedio. Esta imagen se usa para dar una mejor sensacion de que el personaje esta corriendo
+			
+			/*en estas condiciones se decide cual de las 2 imagenes de la "animacion" se va a usar*/
 			if(!this.elegirTextura)
+			{
 				this.setTextura("Correr1.png");
+			}
 			else
+			{
 				this.setTextura("Correr3.png");
+			}
+			
+			/*Si tiene que hacer el paso intermedio de la animacion lo ejecuta, sino dibuja la imagen seleccionada anteriormente*/
 			if(this.pasoIntermedio)
 			{
-				entorno.dibujarImagen(pasoIntermedio, this.posicion.x, this.posicion.y-this.altura/2, 0);
+				entorno.dibujarImagen(pasoIntermedio, this.posicion.x, this.posicion.y-this.alto/2, 0);
 				this.pasoIntermedio = false;
 			}
 			else
 			{
-				entorno.dibujarImagen(this.textura, this.posicion.x, this.posicion.y-this.altura/2, 0);
+				entorno.dibujarImagen(this.textura, this.posicion.x, this.posicion.y-this.alto/2, 0);
 			}
 			
+			/*reinicio la variable*/
 			this.corriendo = false;
 		}
 		else
@@ -281,12 +293,12 @@ public class Agente
 				this.setTextura("Correr6.png");
 			if(this.pasoIntermedio)
 			{
-				entorno.dibujarImagen(pasoIntermedio, this.posicion.x, this.posicion.y-this.altura/2, 0);
+				entorno.dibujarImagen(pasoIntermedio, this.posicion.x, this.posicion.y-this.alto/2, 0);
 				this.pasoIntermedio = false;
 			}
 			else
 			{
-				entorno.dibujarImagen(this.textura, this.posicion.x, this.posicion.y-this.altura/2, 0);
+				entorno.dibujarImagen(this.textura, this.posicion.x, this.posicion.y-this.alto/2, 0);
 			}
 			
 			this.corriendo = false;
@@ -294,10 +306,10 @@ public class Agente
 	}
 	private void dibujarseSubiendo(Entorno entorno, Escalera[] escaleras)
 	{
+		/*flag*/
 		boolean toca = false;
 		
-		
-		for(int i = 0; i < escaleras.length ; i++)
+		for(int i = 0; i < escaleras.length ; i++)//verifico si esta tocando escalera
 		{
 			if(escaleras[i].laToca(this))
 			{
@@ -308,11 +320,21 @@ public class Agente
 		
 		if(toca)
 		{
-			this.setTextura("SubirEscalera1.png");
+			/*estas condiciones son para hacer la "animacion" de subir la escalera*/
+			if(elegirTextura)
+			{
+				this.setTextura("SubirEscalera1.png");
+			}
+			else
+			{
+				this.setTextura("SubirEscalera2.png");
+			}
 		}
-			
-		entorno.dibujarImagen(this.textura, this.posicion.x, this.posicion.y-this.altura/2, 0);
 		
+		/* dibujo al personaje con la textura definida anteriormente*/
+		entorno.dibujarImagen(this.textura, this.posicion.x, this.posicion.y-this.alto/2, 0);
+		
+		/* reinicio la variable */
 		this.subiendo = false;
 	}
 	private void setTextura(String textura)
@@ -329,7 +351,7 @@ public class Agente
 		{
 			posicion = false;
 		}
-		if(agente.getY()+agente.getAltura()/2 > entorno.alto() || agente.getY()-agente.getAltura()/2 < 0)
+		if(agente.getY()+agente.getAlto()/2 > entorno.alto() || agente.getY()-agente.getAlto()/2 < 0)
 		{
 			posicion = false;
 		}

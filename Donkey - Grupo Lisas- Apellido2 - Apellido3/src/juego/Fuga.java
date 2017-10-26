@@ -6,6 +6,7 @@ import java.awt.Point;
 import java.util.Random;
 
 import entorno.Entorno;
+import entorno.Herramientas;
 
 public class Fuga 
 {
@@ -23,6 +24,7 @@ public class Fuga
 		this.ancho = 20;
 		this.alto = 10;
 		this.duracion = 30;
+		
 	}
 	Fuga(int x, int y, int ancho, int alto, int duracion)
 	{
@@ -31,6 +33,7 @@ public class Fuga
 		this.setAncho(ancho);
 		this.setAlto(alto);
 		this.setDuracion(duracion);
+		this.textura = Herramientas.cargarImagen("Fuga.png");
 	}
 	
 	public int getX()
@@ -100,8 +103,9 @@ public class Fuga
 	
 	public void dibujarse(Entorno entorno)
 	{
-		entorno.dibujarRectangulo(this.x, this.y-this.alto, this.ancho, this.alto, 0, Color.green);
-//		cambiarPosicion(entorno);
+		entorno.dibujarRectangulo(this.x, this.y, this.ancho, this.alto, 0, Color.green);
+		entorno.dibujarImagen(this.textura, this.x, this.y, 0);
+		cambiarPosicion(entorno);
 	}
 	
 	private void cambiarPosicion(Entorno entorno) 
@@ -109,6 +113,7 @@ public class Fuga
 		Random random = new Random();
 		if(this.duracion <= 0)
 		{
+			/*defino si la siguiente fuga aparecera del lado derecho o izquierdo*/
 			int x = random.nextInt(2);
 			if(x == 0)
 			{
@@ -119,85 +124,26 @@ public class Fuga
 				this.x = entorno.ancho();
 			}
 			
+			/*ahora a que altura*/
 			int y = random.nextInt(entorno.alto()-100);
 			this. y = y;
 			
-			int d = random.nextInt(200);
-			this.duracion = d;
+			/*ahora cuando va a durar*/
+			int d = random.nextInt(500);
+			if(d > 100)
+			{
+				this.duracion = d;
+			}
+			else
+			{
+				this.duracion = 10;
+			}
+			
 		}
 		else
 		{
 			this.duracion--;
 		}
 
-	}
-	/*Verifica si:
-	 * El personaje toca la fuga o la fuga toca al personaje*/
-	public boolean laToca(Agente agente)
-	{
-		return false;
-//		/* flag */
-//		boolean seTocan = false;
-//		
-//		/* esquinas para verificar si se tocan */
-//		/*esquinas del agente */
-//		Point agenteSupIzq = new Point(agente.getX()-agente.getAncho()/2,agente.getY()-agente.getAltura()/2);
-//		Point agenteSupDer = new Point(agente.getX()+agente.getAncho()/2,agente.getY()-agente.getAltura()/2);
-//		Point agenteInfIzq = new Point(agente.getX()-agente.getAncho()/2,agente.getY()+agente.getAltura()/2);
-//		Point agenteInfDer = new Point(agente.getX()+agente.getAncho()/2,agente.getY()+agente.getAltura()/2);
-//		/*esquinas de la fuga*/
-//		Point fugaSupIzq = new Point(this.x-this.ancho/2,this.y-this.alto/2);
-//		Point fugaSupDer = new Point(this.x+this.ancho/2,this.y-this.alto/2);
-//		Point fugaInfIzq = new Point(this.x-this.ancho/2,this.y+this.alto/2);
-//		Point fugaInfDer = new Point(this.x+this.ancho/2,this.y+this.alto/2);
-//		
-//		/* Primero verifico si el personaje toca a la fuga */
-//		if(agenteSupIzq.y <= this.y+this.alto/2 && agenteSupIzq.y >= this.y-this.alto/2 &&
-//				agenteSupIzq.x <= this.x+this.ancho/2 && agenteSupIzq.x >= this.x-this.ancho/2)
-//		{
-//			seTocan = true;
-//		}
-//		if(agenteSupDer.y <= this.y+this.alto/2 && agenteSupDer.y >= this.y-this.alto/2 &&
-//				agenteSupDer.x <= this.x+this.ancho/2 && agenteSupDer.x >= this.x-this.ancho/2)
-//		{
-//			seTocan = true;
-//		}
-//		if(agenteInfIzq.y <= this.y+this.alto/2 && agenteInfIzq.y >= this.y-this.alto/2 &&
-//				agenteInfIzq.x <= this.x+this.ancho/2 && agenteInfIzq.x >= this.x-this.ancho/2)
-//		{
-//			seTocan = true;
-//		}
-//		if(agenteInfDer.y <= this.y+this.alto/2 && agenteInfDer.y >= this.y-this.alto/2 &&
-//				agenteInfDer.x <= this.x+this.ancho/2 && agenteInfDer.x >= this.x-this.ancho/2)
-//		{
-//			seTocan = true;
-//		}
-//		
-//		/* Ahora verifico si la fuga toca al personaje si no se corroboró que el personaje toca a la fuga */	
-//		if(fugaSupIzq.y <= agente.getY()+agente.getAltura()/2 && fugaSupIzq.y >= agente.getY()-agente.getAltura()/2 &&
-//				fugaSupIzq.x <= agente.getX()+agente.getAncho()/2 && fugaSupIzq.x >= agente.getX()-agente.getAncho()/2)
-//		{
-//			seTocan = true;
-//		}
-//		if(fugaSupDer.y <= agente.getY()+agente.getAltura()/2 && fugaSupDer.y >= agente.getY()-agente.getAltura()/2 &&
-//				fugaSupDer.x <= agente.getX()+agente.getAncho()/2 && fugaSupDer.x >= agente.getX()-agente.getAncho()/2)
-//		{
-//			seTocan = true;
-//		}
-//		if(fugaInfIzq.y <= agente.getY()+agente.getAltura()/2 && fugaInfIzq.y >= agente.getY()-agente.getAltura()/2 &&
-//				fugaInfIzq.x <= agente.getX()+agente.getAncho()/2 && fugaInfIzq.x >= agente.getX()-agente.getAncho()/2)
-//		{
-//			seTocan = true;
-//		}
-//		if(fugaInfDer.y <= agente.getY()+agente.getAltura()/2 && fugaInfDer.y >= agente.getY()-agente.getAltura()/2 &&
-//			fugaInfDer.x <= agente.getX()+agente.getAncho()/2 && fugaInfDer.x >= agente.getX()-agente.getAncho()/2)
-//		{
-//			seTocan = true;
-//		}
-//			
-//		
-//		
-//		/* Devuelvo el valor encontrado */
-//		return seTocan;
 	}
 }
