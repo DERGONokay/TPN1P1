@@ -15,7 +15,7 @@ public class Agente
 	private int potenciaSalto;		/*Cuántos pixeles sube el personaje por tick*/
 	private int alturaSalto;		/*Durante cuantos ticks va a saltar el personaje*/
 	private int vidas;				/*Cantidad de vidas del personaje*/
-	private Image textura;			/*Textura del personaje*/
+	private Image[] texturas;			/*Textura del personaje*/
 	private int intercalado;		/*Contador que se usa para modificar la variable "elegirTextura"*/
 	private boolean elegirTextura;  /*Ayuda a intercalar las imagenes para crear "animaciones" */
 	private boolean pasoIntermedio; /*define si el personaje debe usar la imagen de "paso intermedio"*/
@@ -33,7 +33,7 @@ public class Agente
 		this.potenciaSalto = 3;
 		this.alturaSalto = 0;
 		this.vidas = 3;
-		this.textura = Herramientas.cargarImagen("Agente.png");
+		this.texturas = cargarTexturas();
 		this.intercalado = 10;
 		this.elegirTextura = false;
 		this.subiendo = false;
@@ -222,6 +222,23 @@ public class Agente
 			return false;
 		}
 	}
+	private Image[] cargarTexturas()
+	{
+		Image[] texturas = new Image[10];
+		
+		texturas[0] = Herramientas.cargarImagen("Agente.png");
+		texturas[1] = Herramientas.cargarImagen("Agente2.png");
+		texturas[2] = Herramientas.cargarImagen("Correr1.png");
+		texturas[3] = Herramientas.cargarImagen("Correr2.png");
+		texturas[4] = Herramientas.cargarImagen("Correr3.png");
+		texturas[5] = Herramientas.cargarImagen("Correr4.png");
+		texturas[6] = Herramientas.cargarImagen("Correr5.png");
+		texturas[7] = Herramientas.cargarImagen("Correr6.png");
+		texturas[8] = Herramientas.cargarImagen("SubirEscalera1.png");
+		texturas[9] = Herramientas.cargarImagen("SubirEscalera2.png");
+		
+		return texturas;
+	}
 	private void intercalarTextura()
 	{
 		if(this.intercalado <= 0)
@@ -253,61 +270,57 @@ public class Agente
 	{
 		if(direccion == 'd')
 		{
-			this.setTextura("Agente.png");
-			entorno.dibujarImagen(this.textura, this.posicion.x, this.posicion.y-this.alto/2, 0);
+			entorno.dibujarImagen(this.texturas[0], this.posicion.x, this.posicion.y-this.alto/2, 0);
 		}
 		else
 		{
-			this.setTextura("Agente2.png");
-			entorno.dibujarImagen(this.textura, this.posicion.x, this.posicion.y-this.alto/2, 0);
+			entorno.dibujarImagen(this.texturas[1], this.posicion.x, this.posicion.y-this.alto/2, 0);
 		}
 	}
 	private void dibujarseCorriendo(Entorno entorno)
 	{
+		int textura = 0; //indice del arreglo de texturas
+		
 		/*Si esta corriendo hacia la derecha: */
 		if(direccion == 'd')
 		{
-			
-			Image pasoIntermedio = Herramientas.cargarImagen("Correr2.png");//cargo la imagen del paso intermedio. Esta imagen se usa para dar una mejor sensacion de que el personaje esta corriendo
-			
 			/*en estas condiciones se decide cual de las 2 imagenes de la "animacion" se va a usar*/
 			if(!this.elegirTextura)
 			{
-				this.setTextura("Correr1.png");
+				textura = 2;
 			}
 			else
 			{
-				this.setTextura("Correr3.png");
+				textura = 4;
 			}
 			
 			/*Si tiene que hacer el paso intermedio de la animacion lo ejecuta, sino dibuja la imagen seleccionada anteriormente*/
 			if(this.pasoIntermedio)
 			{
-				entorno.dibujarImagen(pasoIntermedio, this.posicion.x, this.posicion.y-this.alto/2, 0);
+				textura = 3;
 			}
-		 else
-		 {
-		 	entorno.dibujarImagen(this.textura, this.posicion.x, this.posicion.y-this.alto/2, 0);
-		 }
+			
+			entorno.dibujarImagen(this.texturas[textura], this.getX(), this.getY()-(this.alto/2), 0);
 		
 			/*reinicio la variable*/
 			this.corriendo = false;
 		}
 		else
 		{
-			Image pasoIntermedio = Herramientas.cargarImagen("Correr5.png");
 			if(!this.elegirTextura)
-				this.setTextura("Correr4.png");
+			{
+				textura = 5;
+			}
 			else
-				this.setTextura("Correr6.png");
+			{
+				textura = 7;
+			}
 			if(this.pasoIntermedio)
 			{
-				entorno.dibujarImagen(pasoIntermedio, this.posicion.x, this.posicion.y-this.alto/2, 0);
+				textura = 6;
 			}
-			else
-			{
-				entorno.dibujarImagen(this.textura, this.posicion.x, this.posicion.y-this.alto/2, 0);
-			}
+			
+			entorno.dibujarImagen(this.texturas[textura], this.posicion.x, this.posicion.y-this.alto/2, 0);
 			
 			this.corriendo = false;
 		}
@@ -316,6 +329,8 @@ public class Agente
 	{
 		/*flag*/
 		boolean toca = false;
+		
+		int textura = 0; //indice del arrego de texturas
 		
 		for(int i = 0; i < escaleras.length ; i++)//verifico si esta tocando escalera
 		{
@@ -331,23 +346,19 @@ public class Agente
 			/*estas condiciones son para hacer la "animacion" de subir la escalera*/
 			if(elegirTextura)
 			{
-				this.setTextura("SubirEscalera1.png");
+				textura = 8;
 			}
 			else
 			{
-				this.setTextura("SubirEscalera2.png");
+				textura = 9;
 			}
 		}
 		
 		/* dibujo al personaje con la textura definida anteriormente*/
-		entorno.dibujarImagen(this.textura, this.posicion.x, this.posicion.y-this.alto/2, 0);
+		entorno.dibujarImagen(this.texturas[textura], this.posicion.x, this.posicion.y-this.alto/2, 0);
 		
 		/* reinicio la variable */
 		this.subiendo = false;
-	}
-	private void setTextura(String textura)
-	{
-		this.textura = Herramientas.cargarImagen(textura);
 	}
 	public static boolean posValida(Agente agente, Entorno entorno, Viga[] vigas, Escalera[] escaleras)
 	{
