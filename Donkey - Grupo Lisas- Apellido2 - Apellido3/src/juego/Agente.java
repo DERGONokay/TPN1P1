@@ -34,7 +34,7 @@ public class Agente
 		this.alturaSalto = 0;
 		this.vidas = 3;
 		this.texturas = cargarTexturas();
-		this.intercalado = 10;
+		this.intercalado = 40;
 		this.elegirTextura = false;
 		this.subiendo = false;
 	}
@@ -83,8 +83,8 @@ public class Agente
 		/*Intercalo la textura para crear "animaciones" */
 		intercalarTextura();
 		
-//		entorno.dibujarRectangulo(posicion.x, posicion.y-this.alto/2, this.ancho, this.alto, 0, Color.white);
-//		entorno.dibujarCirculo(this.posicion.x, this.posicion.y, 5, Color.black);
+//		entorno.dibujarRectangulo(posicion.x, posicion.y-this.alto/2, this.ancho, this.alto, 0, Color.white); /*hitBox*/
+//		entorno.dibujarCirculo(this.posicion.x, this.posicion.y, 5, Color.black); /*centro*/
 
 			
 	}	
@@ -243,23 +243,15 @@ public class Agente
 	{
 		if(this.intercalado <= 0)
 		{
-			if(!pasoIntermedio)
-			{
-				this.pasoIntermedio = true;
-			}
-			else
-			{
-				this.pasoIntermedio = false;
-			}
-			if(!this.elegirTextura)
-			{
-				this.elegirTextura = true;
-			}
-			else 
-			{
-				this.elegirTextura = false;
-			}
-			this.intercalado = 10;
+//			if(!this.elegirTextura)
+//			{
+//				this.elegirTextura = true;
+//			}
+//			else 
+//			{
+//				this.elegirTextura = false;
+//			}
+			this.intercalado = 40;
 		}
 		else
 		{
@@ -285,18 +277,21 @@ public class Agente
 		if(direccion == 'd')
 		{
 			/*en estas condiciones se decide cual de las 2 imagenes de la "animacion" se va a usar*/
-			if(!this.elegirTextura)
+			if(intercalado >= 0 && intercalado < 10)
 			{
+				System.out.println("Correr1");
 				textura = 2;
 			}
-			else
+			else if(intercalado >= 20 && intercalado < 30)
 			{
+				System.out.println("Correr3");
 				textura = 4;
 			}
 			
 			/*Si tiene que hacer el paso intermedio de la animacion lo ejecuta, sino dibuja la imagen seleccionada anteriormente*/
-			if(this.pasoIntermedio)
+			else
 			{
+				System.out.println("Correr2");
 				textura = 3;
 			}
 			
@@ -307,16 +302,18 @@ public class Agente
 		}
 		else
 		{
-			if(!this.elegirTextura)
-			{
+			if(intercalado >= 0 && intercalado < 10)
+			{System.out.println("Correr4");
 				textura = 5;
+			}
+			else if(intercalado >= 20 && intercalado < 30)
+			{
+				System.out.println("Correr6");
+				textura = 7;
 			}
 			else
 			{
-				textura = 7;
-			}
-			if(this.pasoIntermedio)
-			{
+				System.out.println("Correr5");
 				textura = 6;
 			}
 			

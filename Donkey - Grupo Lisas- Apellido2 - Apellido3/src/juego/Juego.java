@@ -199,7 +199,7 @@ public class Juego extends InterfaceJuego
 	}
 	private void sumarPuntos()
 	{
-		System.out.println(tick);
+//		System.out.println(tick);
 		/* +1 punto cada 50 ticks */
 		if(tick % 50 == 0)
 		{
