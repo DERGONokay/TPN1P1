@@ -45,6 +45,7 @@ public class Juego extends InterfaceJuego
 		tiempo = 180;
 		tick = 0;
 		jugando = true; // cambiar cuando se haga la pantalla de inicio
+		pantallaDePuntuacion = new PantallaDePuntuacion(puntos,tiempo,agente.getVidas());
 		
 		
 		sonidoSalto = "C:\\Users\\Ariana\\Desktop\\Damian\\mario-bros-jump.mp3";
@@ -68,9 +69,9 @@ public class Juego extends InterfaceJuego
 		//iniciarMenu();
 		
 		/*Inicio el juego*/
-		if(jugando && tiempo >= 0 && agente.getVidas() >= 0)
+		if(jugando && tiempo >= 0 && agente.getVidas() > 0)
 		{
-			iniciarJuego();
+			jugar();
 		}
 		/*Muestro la pantalla final*/
 		else
@@ -81,15 +82,10 @@ public class Juego extends InterfaceJuego
 	private void iniciarTablaPuntuacion(int tiempo, int puntos, int vidas)
 	{
 		jugando = false;
-		pantallaDePuntuacion = new PantallaDePuntuacion(puntos,tiempo,vidas);
-		
-		
-		//To do: encapsular en clase: destruirJuego();
-
 		
 		pantallaDePuntuacion.dibujarse(entorno);
 	}
-	private void iniciarJuego()
+	private void jugar()
 	{
 		jugando = true;
 		/*Cuento el tiempo y sumo puntos*/
@@ -103,6 +99,8 @@ public class Juego extends InterfaceJuego
 		donkey.mostrar(entorno);
 		lanzarBarril();
 		
+		/* Chequeo si el agente toca algun barril o la fuga*/
+		chequearColision();
 		
 		/* Movimiento de los barriles */
 		moverBarriles();
@@ -142,17 +140,14 @@ public class Juego extends InterfaceJuego
 		
 		/*Chequeo si el barril llega al final del mapa*/
 		eliminarBarril();
-		
-		/* Chequeo si el agente toca algun barril o la fuga*/
-		chequearColision();
-	}
+		}
 	private void moverBarriles()
 	{
 		for(int i = 0 ; i < barriles.length ; i++)
 		{
 			if(barriles[i] != null && barriles[i].lanzado())
 			{
-				barriles[i].moverse(entorno.ancho());
+				barriles[i].moverse(mapa.getVigas());
 			}
 		}
 	}
@@ -176,7 +171,8 @@ public class Juego extends InterfaceJuego
 		{
 			if(barriles[i] != null && barriles[i].lanzado())
 			{
-				if (agente.colisionaCon(barriles[i].getX(), barriles[i].getY(), barriles[i].getTam()/2, barriles[i].getTam()/2))
+				if (agente.colisionaCon(barriles[i].getX(), barriles[i].getY(),
+						barriles[i].getTam(), barriles[i].getTam()))
 				{
 					restarPuntos();
 					agente.restarVida();
@@ -305,15 +301,7 @@ public class Juego extends InterfaceJuego
 	}
 	private void aplicarGravedad()
 	{
-		agente.gravedad(mapa.getVigas(), mapa.getEscaleras());
-		for(int i = 0 ; i < barriles.length ; i++)
-		{
-			if(barriles[i] != null && barriles[i].lanzado())
-			{
-				barriles[i].gravedad(mapa.getVigas());
-			}
-		}
-		
+		agente.gravedad(mapa.getVigas(), mapa.getEscaleras());		
 	}
 	private void lanzarBarril()
 	{

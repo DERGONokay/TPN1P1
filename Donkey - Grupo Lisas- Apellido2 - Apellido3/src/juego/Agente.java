@@ -65,7 +65,6 @@ public class Agente
 	}
 	public void dibujarse(Entorno entorno, Escalera[] escaleras)  // Dibuja al PJ
 	{
-		//entorno.dibujarRectangulo(posicion.x, posicion.y-(altura/2), this.ancho, this.altura, 0, Color.white);
 		
 		/* Dibujo al personaje dependiendo de que accion está realizando */
 		if(!corriendo && !subiendo)
@@ -83,6 +82,10 @@ public class Agente
 		
 		/*Intercalo la textura para crear "animaciones" */
 		intercalarTextura();
+		
+//		entorno.dibujarRectangulo(posicion.x, posicion.y-this.alto/2, this.ancho, this.alto, 0, Color.white);
+//		entorno.dibujarCirculo(this.posicion.x, this.posicion.y, 5, Color.black);
+
 			
 	}	
 	public void moverDerecha()
@@ -185,7 +188,7 @@ public class Agente
 	}
 	public boolean colisionaCon(int x, int y, int ancho, int alto)
 	{
-		Point[] puntosDelAgente = generarVertices(this.getX(), this.getY(), this.ancho, this.alto);
+		Point[] puntosDelAgente = generarVertices(this.getX(), this.getY()-(this.alto/2), this.ancho, this.alto);
 		Point[] puntosDelObjeto = generarVertices(x, y, ancho, alto);
 		
 		boolean hayColision = false;
@@ -198,12 +201,15 @@ public class Agente
 				break;
 			}
 		}
-		for(int i = 0 ; i < puntosDelObjeto.length ; i++)
+		if(!hayColision)
 		{
-			if(estaDentro(puntosDelObjeto[i],this.getX(),this.getY(),this.ancho,this.alto))
+			for(int i = 0 ; i < puntosDelObjeto.length ; i++)
 			{
-				hayColision = true;
-				break;
+				if(estaDentro(puntosDelObjeto[i],this.getX(),this.getY()-(this.alto/2),this.ancho,this.alto))
+				{
+					hayColision = true;
+					break;
+				}
 			}
 		}
 		
@@ -223,6 +229,10 @@ public class Agente
 			if(!pasoIntermedio)
 			{
 				this.pasoIntermedio = true;
+			}
+			else
+			{
+				this.pasoIntermedio = false;
 			}
 			if(!this.elegirTextura)
 			{
@@ -274,13 +284,12 @@ public class Agente
 			if(this.pasoIntermedio)
 			{
 				entorno.dibujarImagen(pasoIntermedio, this.posicion.x, this.posicion.y-this.alto/2, 0);
-				this.pasoIntermedio = false;
 			}
-			else
-			{
-				entorno.dibujarImagen(this.textura, this.posicion.x, this.posicion.y-this.alto/2, 0);
-			}
-			
+		 else
+		 {
+		 	entorno.dibujarImagen(this.textura, this.posicion.x, this.posicion.y-this.alto/2, 0);
+		 }
+		
 			/*reinicio la variable*/
 			this.corriendo = false;
 		}
@@ -294,7 +303,6 @@ public class Agente
 			if(this.pasoIntermedio)
 			{
 				entorno.dibujarImagen(pasoIntermedio, this.posicion.x, this.posicion.y-this.alto/2, 0);
-				this.pasoIntermedio = false;
 			}
 			else
 			{
@@ -376,7 +384,7 @@ public class Agente
 		
 		return posicion;
 	}
-	private static boolean estaDentro(Point p, int x, int y, int ancho, int alto)
+	public static boolean estaDentro(Point p, int x, int y, int ancho, int alto)
 	{
 		if(p.x >= x-ancho/2 && p.x <= x+ancho/2
 				&& p.y >= y-alto/2 && p.y <= y+alto/2)
@@ -388,14 +396,14 @@ public class Agente
 			return false;
 		}
 	}
-	private static Point[] generarVertices(int x, int y, int ancho, int alto)
+	public static Point[] generarVertices(int x, int y, int ancho, int alto)
 	{
 		Point[] retorno = new Point[4];
 		
-		retorno[0] = new Point(x-ancho/2, y-alto/2);
-		retorno[1] = new Point(x-ancho/2, y+alto/2);
-		retorno[2] = new Point(x+ancho/2, y-alto/2);
-		retorno[3] = new Point(x+ancho/2, y+alto/2);
+		retorno[0] = new Point(x-ancho/2, y-alto/2);/*superior izquierda*/
+		retorno[1] = new Point(x-ancho/2, y+alto/2);/*inferior izquierda*/
+		retorno[2] = new Point(x+ancho/2, y-alto/2);/*superior derecha*/
+		retorno[3] = new Point(x+ancho/2, y+alto/2);/*inferior derecha*/
 		
 		return retorno;
 	}

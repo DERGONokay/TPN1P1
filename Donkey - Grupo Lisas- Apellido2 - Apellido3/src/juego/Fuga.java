@@ -105,6 +105,7 @@ public class Fuga
 	{
 		entorno.dibujarRectangulo(this.x, this.y, this.ancho, this.alto, 0, Color.green);
 		entorno.dibujarImagen(this.textura, this.x, this.y, 0);
+//		entorno.dibujarCirculo(this.x,this.y,5,Color.black); /*centro*/
 		cambiarPosicion(entorno);
 	}
 	

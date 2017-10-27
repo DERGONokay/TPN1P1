@@ -1,6 +1,7 @@
 package juego;
 
 import java.awt.Color;
+import java.awt.Point;
 
 import entorno.Entorno;
 
@@ -9,25 +10,29 @@ public class Barril
 	/* Variables de instancia */
 	private int x;
 	private int y;
-	private int tam;
+	private int diametro;
+	private int velocidadDeMovimiento;
 	private boolean avanzando;
 	private boolean lanzado;
+	private boolean cayendo;
 	
 	/*Constructores */
 	Barril()
 	{
 		this.x = 0;
 		this.y = 50;
-		this.tam = 20;
-		this.avanzando = true;
+		this.diametro = 20;
+		this.avanzando = false;
 		this.lanzado = false;
+		this.velocidadDeMovimiento = 2;
 	}
-	Barril(int x, int y, int tam)
+	Barril(int x, int y, int diametro)
 	{
-		this.x=x;
-		this.y=y;
-		this.tam= tam;
-		this.avanzando=true;
+		this.x = x;
+		this.y = y;
+		this.diametro = diametro;
+		this.avanzando = false;
+		this.velocidadDeMovimiento = 2;
 	}
 	
 	public int getX()
@@ -40,66 +45,69 @@ public class Barril
 	}
 	public int getTam()
 	{
-		return this.tam;
+		return this.diametro;
 	}
 	public boolean getAvanzando()
 	{
 		return this.avanzando;
 	}
-	
 	void dibujarse(Entorno entorno)
 	{
-		entorno.dibujarCirculo(this.x, this.y , this.tam, Color.green);
+//		entorno.dibujarRectangulo(this.x, this.y, this.diametro, this.diametro, 0, Color.red);
+		entorno.dibujarCirculo(this.x, this.y , this.diametro, Color.green);
+//		entorno.dibujarCirculo(this.x, this.y, 5, Color.black);
 	}
-	
-	public void moverse(int ancho) 
+	public void moverse(Viga[] vigas) 
 	{
+		/*Movimiento horizontal: */
+		boolean tocaViga = false;
+		/*Primero verifico si el barril está tocando alguna viga*/
+		for (int i=0 ; i<vigas.length ; i++)
+		{
+			if(this.loToca(vigas[i]))
+			{
+				/*Si toca viga:*/
+				tocaViga = true;/*activo la bandera*/
+				break;
+			}
+		}
+		if(!tocaViga)
+		{
+			/*Si no toca viga*/
+			this.cayendo = true;/*empieza a caer*/
+			this.y += velocidadDeMovimiento;
+		}
 		
-		if (avanzando)
-			this.x+=2;
-		else
-			this.x-=2;
+		/*"Gravedad" del barril (movimiento vertical)*/
+		if (this.avanzando && tocaViga)
+		{
+			this.x += velocidadDeMovimiento;
+		}
+		else if(tocaViga)
+		{
+			this.x -= velocidadDeMovimiento;
+		}
 		
-		if (this.x > ancho)
-			avanzando = false;
-		
-		if (this.x < 0)
-			avanzando = true;
+		if (tocaViga && cayendo)
+		{
+			cayendo = !cayendo;
+			avanzando = !avanzando;
+		}
 	}
 	public boolean loToca(Viga viga)
 	{
-		int piso = viga.getY()-(viga.getAncho()/2);
-		int baseBarril = this.y+(this.tam/2);
-		
-		if (baseBarril >= piso && baseBarril <= viga.getY()+viga.getAncho()/2 &&
-				this.x>=(viga.getX()-(viga.getAlto()/2)) && this.x<=viga.getX()+(viga.getAlto()/2))
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-			
-	}
-	
-	void gravedad(Viga[] viga)
-	{
+		Point[] verticesBarril = Agente.generarVertices(this.x, this.y, this.diametro, this.diametro);
 		boolean tocaViga = false;
 		
-		for (int i=0 ; i<viga.length ; i++)
+		for(int i = 0 ; i < verticesBarril.length ; i++)
 		{
-			if(this.loToca(viga[i]))
+			if(Agente.estaDentro(verticesBarril[i], viga.getX(), viga.getY(), viga.getAlto(), viga.getAncho()))
 			{
 				tocaViga = true;
 			}
 		}
 		
-		if(!tocaViga)
-		{
-			this.y+=2;
-		}
-			
+		return tocaViga;
 	}
 	public boolean lanzado() 
 	{
