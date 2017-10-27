@@ -17,8 +17,6 @@ public class Agente
 	private int vidas;				/*Cantidad de vidas del personaje*/
 	private Image[] texturas;			/*Textura del personaje*/
 	private int intercalado;		/*Contador que se usa para modificar la variable "elegirTextura"*/
-	private boolean elegirTextura;  /*Ayuda a intercalar las imagenes para crear "animaciones" */
-	private boolean pasoIntermedio; /*define si el personaje debe usar la imagen de "paso intermedio"*/
 	private boolean subiendo;       /*define si el personaje esta subiendo una escalera*/
 	
 	public Agente()  // Constructor de un PJ unico
@@ -34,8 +32,7 @@ public class Agente
 		this.alturaSalto = 0;
 		this.vidas = 3;
 		this.texturas = cargarTexturas();
-		this.intercalado = 40;
-		this.elegirTextura = false;
+		this.intercalado = 39;
 		this.subiendo = false;
 	}
 	
@@ -243,14 +240,6 @@ public class Agente
 	{
 		if(this.intercalado <= 0)
 		{
-//			if(!this.elegirTextura)
-//			{
-//				this.elegirTextura = true;
-//			}
-//			else 
-//			{
-//				this.elegirTextura = false;
-//			}
 			this.intercalado = 40;
 		}
 		else
@@ -303,7 +292,8 @@ public class Agente
 		else
 		{
 			if(intercalado >= 0 && intercalado < 10)
-			{System.out.println("Correr4");
+			{	
+				System.out.println("Correr4");
 				textura = 5;
 			}
 			else if(intercalado >= 20 && intercalado < 30)
@@ -341,7 +331,7 @@ public class Agente
 		if(toca)
 		{
 			/*estas condiciones son para hacer la "animacion" de subir la escalera*/
-			if(elegirTextura)
+			if((this.intercalado >= 0 && this.intercalado < 10) || (this.intercalado >= 20 && this.intercalado < 30))
 			{
 				textura = 8;
 			}
