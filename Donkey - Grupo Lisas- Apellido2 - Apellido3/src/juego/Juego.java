@@ -214,7 +214,10 @@ public class Juego extends InterfaceJuego
 	}
 	private void restarPuntos()
 	{
-		puntos -= 100;
+		if(puntos >= 50)
+			puntos -= 50;
+		else
+			puntos -= puntos;
 	}
 	private void dibujarBarriles()
 	{
