@@ -205,11 +205,11 @@ public class Juego extends InterfaceJuego
 		{
 			puntos++;
 		}
-		/* +50 puntos por saltar un barril */
-//		if(agente.saltoBarril(barril))
-//		{
-//			puntos += 50;
-//		}
+		/* +10 puntos por cada tick que salta un barril */
+		if(agente.saltoBarril(barriles))
+		{
+			puntos += 10;
+		}
 	}
 	private void restarPuntos()
 	{

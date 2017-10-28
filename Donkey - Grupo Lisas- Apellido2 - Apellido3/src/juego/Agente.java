@@ -219,6 +219,30 @@ public class Agente
 			return false;
 		}
 	}
+	/* esta funcion "desfasa" hacia arriba la hit box del barril hacia arriba para utilizar la funcion colisionaCon y verifica si
+	 * el agente toca esa hitbox, si lo hace quiere decir que lo saltó por lo tanto devuelve true*/
+	public boolean saltoBarril(Barril[] barriles)
+	{
+		Point[] verticesAgente = generarVertices(this.getX(), this.getY()+this.alto/2, this.ancho, this.alto);
+		if(saltando)
+		{
+			for(int i = 0 ; i < barriles.length ; i++)//recorro los barriles
+			{
+				for(int j = 0 ; j < verticesAgente.length ; j++)// recorro los verices
+				{
+					if(barriles[i].lanzado())// verifico si el vertice esta dentro del barril si el barril está lanzado
+					{
+						if(estaDentro(verticesAgente[j], barriles[i].getX(), barriles[i].getY()-barriles[i].getTam(),
+								barriles[i].getTam(), barriles[i].getTam()))
+						{
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
 	private Image[] cargarTexturas()
 	{
 		Image[] texturas = new Image[10];
