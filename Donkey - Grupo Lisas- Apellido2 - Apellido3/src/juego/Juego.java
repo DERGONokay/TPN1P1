@@ -23,6 +23,7 @@ public class Juego extends InterfaceJuego
 	int puntos;
 	int tick;
 	boolean jugando;
+	boolean victoria;
 	
 	/*Pantalla de puntuacion*/
 	PantallaDePuntuacion pantallaDePuntuacion;
@@ -45,6 +46,7 @@ public class Juego extends InterfaceJuego
 		tiempo = 180;
 		tick = 0;
 		jugando = true; // cambiar cuando se haga la pantalla de inicio
+		victoria = false; // determina si el jnugador ganó o perdió
 		
 		
 		sonidoSalto = "C:\\Users\\Ariana\\Desktop\\Damian\\mario-bros-jump.mp3";
@@ -85,7 +87,7 @@ public class Juego extends InterfaceJuego
 		{
 			pantallaDePuntuacion = new PantallaDePuntuacion(this.puntos, this.tiempo, agente.getVidas());
 		}
-		pantallaDePuntuacion.dibujarse(entorno);
+		pantallaDePuntuacion.dibujarse(entorno, victoria);
 	}
 	private void jugar()
 	{

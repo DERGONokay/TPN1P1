@@ -9,10 +9,13 @@ public class Mapa
 	private Viga[] vigas;
 	private Escalera[] escaleras;
 	private Fuga fuga;
+	private Image fondo;
 
 	
 	Mapa()
 	{
+		fondo = Herramientas.cargarImagen("Fondo.png");
+		
 		vigas=new Viga[6];
 		escaleras = new Escalera[9];
 		
@@ -51,6 +54,8 @@ public class Mapa
 	
 	void dibujarse(Entorno entorno)
 	{
+		entorno.dibujarImagen(fondo, entorno.ancho()/2, entorno.alto()/2, 0);//dibujo el fondo
+		
 		fuga.dibujarse(entorno);
 		
 		

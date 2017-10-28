@@ -19,7 +19,7 @@ public class PantallaDePuntuacion
 	
 	//To do: getters y setters
 	
-	public void dibujarse(Entorno entorno)
+	public void dibujarse(Entorno entorno, Boolean victoria)
 	{
 		entorno.cambiarFont("arial", 20, Color.white);
 		entorno.escribirTexto("¡SIMULACION FINALIZADA!", entorno.ancho()/2-120, 100);
