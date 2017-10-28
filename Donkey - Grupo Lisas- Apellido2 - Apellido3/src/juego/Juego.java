@@ -45,7 +45,6 @@ public class Juego extends InterfaceJuego
 		tiempo = 180;
 		tick = 0;
 		jugando = true; // cambiar cuando se haga la pantalla de inicio
-		pantallaDePuntuacion = new PantallaDePuntuacion(puntos,tiempo,agente.getVidas());
 		
 		
 		sonidoSalto = "C:\\Users\\Ariana\\Desktop\\Damian\\mario-bros-jump.mp3";
@@ -76,13 +75,16 @@ public class Juego extends InterfaceJuego
 		/*Muestro la pantalla final*/
 		else
 		{
-			iniciarTablaPuntuacion(tiempo, puntos, agente.getVidas());	
+			mostratPuntuacionFinal(tiempo, puntos, agente.getVidas());	
 		}
 	}
-	private void iniciarTablaPuntuacion(int tiempo, int puntos, int vidas)
+	private void mostratPuntuacionFinal(int tiempo, int puntos, int vidas)
 	{
 		jugando = false;
-		
+		if(pantallaDePuntuacion == null)
+		{
+			pantallaDePuntuacion = new PantallaDePuntuacion(this.puntos, this.tiempo, agente.getVidas());
+		}
 		pantallaDePuntuacion.dibujarse(entorno);
 	}
 	private void jugar()
@@ -135,7 +137,7 @@ public class Juego extends InterfaceJuego
 		}
 		/*--------------------------------------------------------------------------------------------------*/
 		
-		/* Le aplico gravedad al personaje y los barriles */
+		/* Le aplico gravedad al personaje*/
 		aplicarGravedad();
 		
 		/*Chequeo si el barril llega al final del mapa*/
@@ -199,7 +201,6 @@ public class Juego extends InterfaceJuego
 	}
 	private void sumarPuntos()
 	{
-//		System.out.println(tick);
 		/* +1 punto cada 50 ticks */
 		if(tick % 50 == 0)
 		{
