@@ -65,7 +65,7 @@ public class Donkey
 			this.chanceDeLanzar++;
 		}
 		
-		if(chanceDeLanzar >= 50)
+		if(chanceDeLanzar >= 75)
 		{
 			barril.lanzar();
 			this.chanceDeLanzar = 0;

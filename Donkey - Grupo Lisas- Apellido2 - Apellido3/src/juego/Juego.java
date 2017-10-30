@@ -82,7 +82,7 @@ public class Juego extends InterfaceJuego
 		{
 			pantallaDePuntuacion = new PantallaDePuntuacion(this.puntos, this.tiempo, agente.getVidas());
 		}
-		pantallaDePuntuacion.dibujarse(entorno, victoria);
+		pantallaDePuntuacion.dibujarse(entorno, victoria, mapa);
 	}
 	private void jugar()
 	{
@@ -243,11 +243,11 @@ public class Juego extends InterfaceJuego
 	{
 		mapa.dibujarse(entorno);
 		dibujarBarriles();
-		Hud.dibujarse(entorno,agente.getVidas(),tiempo, puntos);
 		if(agente != null)
 		{
 			agente.dibujarse(entorno, mapa.getEscaleras());
 		}
+		Hud.dibujarse(entorno,agente.getVidas(),tiempo, puntos);
 	}
 	private void moverDerecha()
 	{

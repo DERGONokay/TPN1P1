@@ -1,9 +1,11 @@
 package juego;
 
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.Point;
 
 import entorno.Entorno;
+import entorno.Herramientas;
 
 public class Barril 
 {
@@ -15,16 +17,18 @@ public class Barril
 	private boolean avanzando;
 	private boolean lanzado;
 	private boolean cayendo;
+	private Image textura;
 	
 	/*Constructores */
 	Barril()
 	{
-		this.x = 0;
+		this.x = 135;
 		this.y = 50;
 		this.diametro = 20;
 		this.avanzando = false;
 		this.lanzado = false;
 		this.velocidadDeMovimiento = 2;
+		this.textura = Herramientas.cargarImagen("Barril.png");
 	}
 	Barril(int x, int y, int diametro)
 	{
@@ -53,8 +57,9 @@ public class Barril
 	}
 	void dibujarse(Entorno entorno)
 	{
+		entorno.dibujarImagen(this.textura, this.x, this.y, 0);
 //		entorno.dibujarRectangulo(this.x, this.y, this.diametro, this.diametro, 0, Color.red);
-		entorno.dibujarCirculo(this.x, this.y , this.diametro, Color.green);
+//		entorno.dibujarCirculo(this.x, this.y , this.diametro, Color.green);
 //		entorno.dibujarCirculo(this.x, this.y, 5, Color.black);
 	}
 	public void moverse(Viga[] vigas) 
