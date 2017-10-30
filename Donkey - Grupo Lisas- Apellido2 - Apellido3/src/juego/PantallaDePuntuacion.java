@@ -21,9 +21,16 @@ public class PantallaDePuntuacion
 	
 	public void dibujarse(Entorno entorno, Boolean victoria)
 	{
-		entorno.cambiarFont("arial", 20, Color.white);
-		entorno.escribirTexto("¡SIMULACION FINALIZADA!", entorno.ancho()/2-120, 100);
-		
+		if(victoria)
+		{
+			entorno.cambiarFont("arial", 20, Color.white);
+			entorno.escribirTexto("¡SIMULACION FINALIZADA EXITOSAMENTE!", entorno.ancho()/2-120, 100);
+		}
+		else
+		{
+			entorno.cambiarFont("arial", 20, Color.white);
+			entorno.escribirTexto("¡SIMULACION FALLIDA!", entorno.ancho()/2-120, 100);
+		}
 		entorno.dibujarRectangulo(entorno.ancho()/2, entorno.alto()/2-55, 120, 30, 0, Color.white);
 		entorno.cambiarFont("arial", 12, Color.black);
 		entorno.escribirTexto("VOLVER AL MENU", entorno.ancho()/2-50, entorno.alto()/2-50);
