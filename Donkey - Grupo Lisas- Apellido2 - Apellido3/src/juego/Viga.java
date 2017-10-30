@@ -13,7 +13,7 @@ public class Viga
 	private int ancho;
 	private int alto;
 	private Image textura;
-	
+		
 	Viga(int x, int y, int an, int al)
 	{
 		this.x=x;
@@ -106,5 +106,4 @@ public class Viga
 					return false;
 				}
 	}
-
 }

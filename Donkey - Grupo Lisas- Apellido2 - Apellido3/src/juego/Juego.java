@@ -15,20 +15,18 @@ public class Juego extends InterfaceJuego
 	// Variables y métodos propios de cada grupo
 	
 	/*Juego*/
-	Mapa mapa;
-	Donkey donkey;
-	Agente agente;
-	Barril[] barriles;
-	int tiempo;
-	int puntos;
-	int tick;
-	boolean jugando;
-	boolean victoria;
+	Mapa mapa;			/*Mapa de juego*/
+	Donkey donkey;		/*Mono*/
+	Agente agente;		/*Personaje del usuario*/
+	Barril[] barriles;	/*Barriles que se lanzaran*/
+	int tiempo;			/*Tiempo límite de juego*/
+	int puntos;			/*Puntaje del usuario*/
+	int tick;			/*Contador de ticks*/
+	boolean jugando;	/*Define si el usuario está jugando*/
+	boolean victoria;	/*Define si el usuario ganó o peridó*/
 	
 	/*Pantalla de puntuacion*/
-	PantallaDePuntuacion pantallaDePuntuacion;
-	
-	String sonidoSalto;
+	PantallaDePuntuacion pantallaDePuntuacion;	/*Pantalla final de puntuación*/
 	
 	
 	
@@ -41,15 +39,12 @@ public class Juego extends InterfaceJuego
 		mapa = new Mapa();
 		donkey = new Donkey();
 		agente = new Agente();
-		barriles = new Barril[5];
+		barriles = new Barril[20];
 		inicializarBarriles();
 		tiempo = 180;
 		tick = 0;
 		jugando = true; // cambiar cuando se haga la pantalla de inicio
 		victoria = false; // determina si el jnugador ganó o perdió
-		
-		
-		sonidoSalto = "C:\\Users\\Ariana\\Desktop\\Damian\\mario-bros-jump.mp3";
 		
 
 		// Inicia el juego!
@@ -103,6 +98,9 @@ public class Juego extends InterfaceJuego
 		donkey.mostrar(entorno);
 		lanzarBarril();
 		
+		/*chequeo si el ya ganó*/
+		chequearVictoria();
+		
 		/* Chequeo si el agente toca algun barril o la fuga*/
 		chequearColision();
 		
@@ -149,7 +147,7 @@ public class Juego extends InterfaceJuego
 	{
 		for(int i = 0 ; i < barriles.length ; i++)
 		{
-			if(barriles[i] != null && barriles[i].lanzado())
+			if(barriles[i].lanzado())
 			{
 				barriles[i].moverse(mapa.getVigas());
 			}
@@ -167,6 +165,14 @@ public class Juego extends InterfaceJuego
 					barriles[i] = new Barril();
 				}
 			}
+		}
+	}
+	private void chequearVictoria()
+	{
+		if(agente.llegoAlFinal(donkey))
+		{
+			victoria = true;
+			jugando = false;
 		}
 	}
 	private void chequearColision()
@@ -225,8 +231,10 @@ public class Juego extends InterfaceJuego
 	{
 		for(int i = 0 ; i < barriles.length ; i++)
 		{
+//			System.out.println("Barril=" + i + " Lanzado=" + barriles[i].lanzado());
 			if(barriles[i] != null && barriles[i].lanzado())
 			{
+//				System.out.println("Dibujando barril : " + i);
 				barriles[i].dibujarse(entorno);
 			}
 		}
@@ -313,9 +321,10 @@ public class Juego extends InterfaceJuego
 	{
 		for(int i = 0 ; i < barriles.length ; i++)
 		{
-			if(barriles[i] != null)
+			if(!barriles[i].lanzado())
 			{
 				donkey.lanzarBarril(barriles[i]);
+				break;
 			}
 		}
 	}

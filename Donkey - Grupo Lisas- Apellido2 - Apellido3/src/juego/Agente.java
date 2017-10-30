@@ -19,6 +19,7 @@ public class Agente
 	private int intercalado;		/*Contador que se usa para modificar la variable "elegirTextura"*/
 	private boolean subiendo;       /*define si el personaje esta subiendo una escalera*/
 	
+	
 	public Agente()  // Constructor de un PJ unico
 	{
 		this.direccion = 'd';
@@ -243,6 +244,19 @@ public class Agente
 		}
 		return false;
 	}
+	public boolean llegoAlFinal(Donkey donkey) 
+	{
+		Point[] verticesAgente = generarVertices(this.getX(), this.getY()+this.alto/2, this.ancho, this.alto);
+		
+		for(int i = 0; i < verticesAgente.length ; i++)
+		{
+			if(estaDentro(verticesAgente[i],donkey.getPosicion().x, donkey.getPosicion().y, donkey.getAncho(), donkey.getAltura()))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 	private Image[] cargarTexturas()
 	{
 		Image[] texturas = new Image[10];
@@ -292,19 +306,19 @@ public class Agente
 			/*en estas condiciones se decide cual de las 2 imagenes de la "animacion" se va a usar*/
 			if(intercalado >= 0 && intercalado < 10)
 			{
-				System.out.println("Correr1");
+//				System.out.println("Correr1");
 				textura = 2;
 			}
 			else if(intercalado >= 20 && intercalado < 30)
 			{
-				System.out.println("Correr3");
+//				System.out.println("Correr3");
 				textura = 4;
 			}
 			
 			/*Si tiene que hacer el paso intermedio de la animacion lo ejecuta, sino dibuja la imagen seleccionada anteriormente*/
 			else
 			{
-				System.out.println("Correr2");
+//				System.out.println("Correr2");
 				textura = 3;
 			}
 			
@@ -317,17 +331,17 @@ public class Agente
 		{
 			if(intercalado >= 0 && intercalado < 10)
 			{	
-				System.out.println("Correr4");
+//				System.out.println("Correr4");
 				textura = 5;
 			}
 			else if(intercalado >= 20 && intercalado < 30)
 			{
-				System.out.println("Correr6");
+//				System.out.println("Correr6");
 				textura = 7;
 			}
 			else
 			{
-				System.out.println("Correr5");
+//				System.out.println("Correr5");
 				textura = 6;
 			}
 			

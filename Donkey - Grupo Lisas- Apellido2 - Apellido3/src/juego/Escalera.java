@@ -15,10 +15,9 @@ public class Escalera
 	private int ancho;
 	private int bordeInferior; /*Posicion en Y de la base de la escalera*/
 	private int bordeSuperior; /*Posicion en Y de la parte superior de la escalera*/
-	private boolean rota;
 	private Image textura;
 	
-	Escalera(int x, int y, int alto, int ancho, boolean rota)
+	Escalera(int x, int y, int alto, int ancho)
 	{
 		this.x = x;
 		this.y = y;
@@ -26,7 +25,6 @@ public class Escalera
 		this.ancho = ancho;
 		this.bordeInferior = this.y+alto/2;
 		this.bordeSuperior = this.y-alto/2;
-		this.rota = rota;
 		textura = Herramientas.cargarImagen("Escalera.png");
 	}
 	/* getters y setters */
@@ -68,7 +66,7 @@ public class Escalera
 
 	}
 	
-	/*Devuelve verdadero en caso de que el personaje esté tocando la escalera*/
+	/*Devuelve verdadero en caso de que los pies del personaje estén tocando la escalera*/
 	public boolean laToca(Agente agente)
 	{
 		/* parametros de comparacion */
@@ -98,9 +96,7 @@ public class Escalera
 
 		/* comparo los parametros */
 		if( baseAgente < this.y+(this.alto/2) && baseAgente > this.y-(this.alto/2) && 
-				ladoDerecho > this.x-(this.ancho/2) && ladoIzquierdo < this.x+(this.ancho) || 
-			(agente.getY() < this.y+(this.alto/2) && agente.getY() > this.y-(this.alto/2) &&
-					agente.getX() > this.x-this.ancho/2 && agente.getX() < this.x+this.ancho/2))
+				ladoDerecho > this.x-(this.ancho/2) && ladoIzquierdo < this.x+(this.ancho))
 		{
 			return true;
 		}

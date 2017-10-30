@@ -58,12 +58,14 @@ public class Donkey
 		Random random = new Random();
 		int num1 = 0;
 		int num2 = random.nextInt(2);
+		
+//		System.out.println(num1 == num2);
 		if(num1 == num2)
 		{
 			this.chanceDeLanzar++;
 		}
 		
-		if(chanceDeLanzar >= 200)
+		if(chanceDeLanzar >= 50)
 		{
 			barril.lanzar();
 			this.chanceDeLanzar = 0;

@@ -23,22 +23,22 @@ public class Mapa
 		fuga = new Fuga(0,460,100,20,30);
 		
 		/*Escaleras enteras */
-		escaleras[0] = new Escalera(715,600-65,100,20,false);
-		escaleras[1] = new Escalera(85,500-65,100,20,false);
-		escaleras[2] = new Escalera(715,400-65,100,20,false);
-		escaleras[3] = new Escalera(85,300-65,100,20,false);
-		escaleras[4] = new Escalera(715,200-65,100,20,false);
+		escaleras[0] = new Escalera(715,600-65,100,20);
+		escaleras[1] = new Escalera(85,500-65,100,20);
+		escaleras[2] = new Escalera(715,400-65,100,20);
+		escaleras[3] = new Escalera(85,300-65,100,20);
+		escaleras[4] = new Escalera(715,200-65,100,20);
 		/*Escaleras "rotas"*/
-		escaleras[5] = new Escalera(350,300-35,40,20,true);
+		escaleras[5] = new Escalera(350,300-35,40,20);
 		escaleras[5].setTextura("EscaleraRota2.png");
 		
-		escaleras[6] = new Escalera(350,300-98,35,20,true);
+		escaleras[6] = new Escalera(350,300-98,35,20);
 		escaleras[6].setTextura("EscaleraRota3.png");
 		
-		escaleras[7] = new Escalera(550,200-95,40,20,true);
+		escaleras[7] = new Escalera(550,200-95,40,20);
 		escaleras[7].setTextura("EscaleraRota1.png");
 		
-		escaleras[8] = new Escalera(400,500-35,40,20,true);
+		escaleras[8] = new Escalera(400,500-35,40,20);
 		escaleras[8].setTextura("EscaleraRota2.png");
 		
 		/*Vigas*/
