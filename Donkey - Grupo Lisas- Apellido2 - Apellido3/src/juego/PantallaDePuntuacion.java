@@ -40,13 +40,13 @@ public class PantallaDePuntuacion
 //		entorno.cambiarFont("arial", 12, Color.black);
 //		entorno.escribirTexto("VOLVER A JUGAR", entorno.ancho()/2-50, entorno.alto()/2+5);
 //		
-		entorno.cambiarFont("arial", 20, Color.black);
+		entorno.cambiarFont("arialblack", 20, Color.black);
 		entorno.escribirTexto("Vidas: " + this.vidas, entorno.ancho()/4, entorno.alto()/4+30);
 		
-		entorno.cambiarFont("arial", 20, Color.black);
+		entorno.cambiarFont("arialblack", 20, Color.black);
 		entorno.escribirTexto("Tiempo: " + this.tiempo, entorno.ancho()/2-30, entorno.alto()/4+30);
 		
-		entorno.cambiarFont("arial", 20, Color.black);
+		entorno.cambiarFont("arialblack", 20, Color.black);
 		entorno.escribirTexto("Puntos: " + this.puntos, entorno.ancho()/2+160, entorno.alto()/4+30);
 	}
 }

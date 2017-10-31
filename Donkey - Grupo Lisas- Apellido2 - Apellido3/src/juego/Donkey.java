@@ -11,6 +11,8 @@ public class Donkey
 	private int altura;
 	private int ancho;
 	private Image textura;
+	private Image textura2;
+	private boolean lanzando = false;
 	private int chanceDeLanzar;
 	
 	public Donkey() // Constructor
@@ -20,6 +22,7 @@ public class Donkey
 		this.ancho = 55;
 		this.chanceDeLanzar = 0;
 		this.textura = Herramientas.cargarImagen("Donkey.png");
+		this.textura2 = Herramientas.cargarImagen("Donkeylanzando.png");
 	}
 	
 	public void mostrar(Entorno entorno) //Dibujador
@@ -53,13 +56,13 @@ public class Donkey
 		this.ancho = ancho;
 	}
 	//Getters & Setters FIN
+	
 	public void lanzarBarril(Barril barril)
 	{
 		Random random = new Random();
 		int num1 = 0;
 		int num2 = random.nextInt(2);
 		
-//		System.out.println(num1 == num2);
 		if(num1 == num2)
 		{
 			this.chanceDeLanzar++;

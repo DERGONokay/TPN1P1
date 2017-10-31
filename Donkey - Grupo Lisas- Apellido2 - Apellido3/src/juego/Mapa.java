@@ -14,7 +14,7 @@ public class Mapa
 	
 	Mapa()
 	{
-		fondo = Herramientas.cargarImagen("Fondo.png");
+		fondo = Herramientas.cargarImagen("Fondo.jpg");
 		
 		vigas=new Viga[6];
 		escaleras = new Escalera[9];

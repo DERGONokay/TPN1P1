@@ -1,7 +1,8 @@
 package juego;
 
 
-import javax.sound.sampled.Clip;
+import javax.sound.sampled.*;
+import java.awt.*;
 
 import entorno.Entorno;
 import entorno.Herramientas;
@@ -15,6 +16,7 @@ public class Juego extends InterfaceJuego
 	// Variables y métodos propios de cada grupo
 	
 	/*Juego*/
+	Clip cortina;       /*Cancion de fondo del juego*/
 	Mapa mapa;			/*Mapa de juego*/
 	Donkey donkey;		/*Mono*/
 	Agente agente;		/*Personaje del usuario*/
@@ -36,6 +38,8 @@ public class Juego extends InterfaceJuego
 		this.entorno = new Entorno(this, "Donkey - Grupo Apellido1 - Apellido2 -Apellido3 - V0.01", 800, 600);
 		
 		// Inicializar lo que haga falta para el juego
+		cortina = Herramientas.cargarSonido("cortina.aiff");
+		cortina.start();
 		mapa = new Mapa();
 		donkey = new Donkey();
 		agente = new Agente();
@@ -336,7 +340,7 @@ public class Juego extends InterfaceJuego
 		}
 	}
 	
-
+	
 	@SuppressWarnings("unused")
 	public static void main(String[] args)
 	{

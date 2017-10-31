@@ -57,7 +57,7 @@ public class Barril
 	}
 	void dibujarse(Entorno entorno)
 	{
-		entorno.dibujarImagen(this.textura, this.x, this.y, 0);
+		entorno.dibujarImagen(this.textura, this.x, this.y, x/11);
 //		entorno.dibujarRectangulo(this.x, this.y, this.diametro, this.diametro, 0, Color.red);
 //		entorno.dibujarCirculo(this.x, this.y , this.diametro, Color.green);
 //		entorno.dibujarCirculo(this.x, this.y, 5, Color.black);
