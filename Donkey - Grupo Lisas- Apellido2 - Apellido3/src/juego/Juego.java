@@ -17,6 +17,7 @@ public class Juego extends InterfaceJuego
 	
 	/*Juego*/
 	Clip cortina;       /*Cancion de fondo del juego*/
+	boolean play;	    /*Control del momento de reproducir la musica*/
 	Mapa mapa;			/*Mapa de juego*/
 	Donkey donkey;		/*Mono*/
 	Agente agente;		/*Personaje del usuario*/
@@ -39,7 +40,8 @@ public class Juego extends InterfaceJuego
 		
 		// Inicializar lo que haga falta para el juego
 		cortina = Herramientas.cargarSonido("cortina.aiff");
-		cortina.start();
+		cortina.loop(9);
+		play = true;
 		mapa = new Mapa();
 		donkey = new Donkey();
 		agente = new Agente();
@@ -339,6 +341,7 @@ public class Juego extends InterfaceJuego
 			barriles[i] = new Barril();
 		}
 	}
+	
 	
 	
 	@SuppressWarnings("unused")

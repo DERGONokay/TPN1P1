@@ -2,6 +2,7 @@ package juego;
 
 import entorno.*;
 import java.awt.*;
+import javax.sound.sampled.*;
 
 public class Agente 
 {
@@ -18,6 +19,7 @@ public class Agente
 	private Image[] texturas;			/*Textura del personaje*/
 	private int intercalado;		/*Contador que se usa para modificar la variable "elegirTextura"*/
 	private boolean subiendo;       /*define si el personaje esta subiendo una escalera*/
+	private Clip salto = Herramientas.cargarSonido("salto.wav");
 	
 	
 	public Agente()  // Constructor de un PJ unico
@@ -164,6 +166,7 @@ public class Agente
 	{
 		if(!saltando)
 		{
+			this.salto.loop(1);
 			this.saltando = true;
 			this.corriendo = false;
 			this.alturaSalto = 20; /* cantidad de ticks que va a saltar */

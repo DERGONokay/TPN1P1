@@ -12,6 +12,7 @@ public class Donkey
 	private int ancho;
 	private Image textura;
 	private Image textura2;
+	private Image textura3;
 	private boolean lanzando = false;
 	private int chanceDeLanzar;
 	
@@ -23,12 +24,16 @@ public class Donkey
 		this.chanceDeLanzar = 0;
 		this.textura = Herramientas.cargarImagen("Donkey.png");
 		this.textura2 = Herramientas.cargarImagen("Donkeylanzando.png");
+		this.textura3 = Herramientas.cargarImagen("Donkeyagarrando.png");
 	}
 	
 	public void mostrar(Entorno entorno) //Dibujador
 	{
 		//entorno.dibujarRectangulo( posicion.x, posicion.y, 0, Color.pink);
-		entorno.dibujarImagen(textura, posicion.x, posicion.y, 0);
+		if (lanzando)
+			entorno.dibujarImagen(textura2, posicion.x, posicion.y, 0);
+		else
+			entorno.dibujarImagen(textura, posicion.x, posicion.y, 0);
 	}
 
 	//Getters & Setters INICIO
@@ -59,10 +64,11 @@ public class Donkey
 	
 	public void lanzarBarril(Barril barril)
 	{
+		
 		Random random = new Random();
 		int num1 = 0;
 		int num2 = random.nextInt(2);
-		
+		this.lanzando = false;
 		if(num1 == num2)
 		{
 			this.chanceDeLanzar++;
@@ -72,6 +78,7 @@ public class Donkey
 		{
 			barril.lanzar();
 			this.chanceDeLanzar = 0;
+			this.lanzando = true;
 		}
 	}
 	
