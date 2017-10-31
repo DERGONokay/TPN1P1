@@ -98,8 +98,7 @@ public class Juego extends InterfaceJuego
 		/* Dibujo el mapa, el agente y el HUD */
 		dibujarCosas();
 		
-		/* Dibujo de Donkey */
-		donkey.mostrar(entorno);
+		/* Lanzar barriles */
 		lanzarBarril();
 		
 		/*chequeo si el ya ganó*/
@@ -247,6 +246,7 @@ public class Juego extends InterfaceJuego
 	{
 		mapa.dibujarse(entorno);
 		dibujarBarriles();
+		donkey.mostrar(entorno);
 		if(agente != null)
 		{
 			agente.dibujarse(entorno, mapa.getEscaleras());

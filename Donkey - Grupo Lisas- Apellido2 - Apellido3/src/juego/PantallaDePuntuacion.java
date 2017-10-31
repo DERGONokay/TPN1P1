@@ -25,7 +25,7 @@ public class PantallaDePuntuacion
 		if(victoria)
 		{
 			entorno.cambiarFont("arial", 20, Color.green);
-			entorno.escribirTexto("¡SIMULACION FINALIZADA EXITOSAMENTE!", entorno.ancho()/2-120, 100);
+			entorno.escribirTexto("¡SIMULACION FINALIZADA EXITOSAMENTE!", entorno.ancho()/2-200, 100);
 		}
 		else
 		{
@@ -40,13 +40,13 @@ public class PantallaDePuntuacion
 //		entorno.cambiarFont("arial", 12, Color.black);
 //		entorno.escribirTexto("VOLVER A JUGAR", entorno.ancho()/2-50, entorno.alto()/2+5);
 //		
-		entorno.cambiarFont("arialblack", 20, Color.black);
+		entorno.cambiarFont("arialblack", 20, Color.red);
 		entorno.escribirTexto("Vidas: " + this.vidas, entorno.ancho()/4, entorno.alto()/4+30);
 		
-		entorno.cambiarFont("arialblack", 20, Color.black);
+		entorno.cambiarFont("arialblack", 20, Color.red);
 		entorno.escribirTexto("Tiempo: " + this.tiempo, entorno.ancho()/2-30, entorno.alto()/4+30);
 		
-		entorno.cambiarFont("arialblack", 20, Color.black);
+		entorno.cambiarFont("arialblack", 20, Color.red);
 		entorno.escribirTexto("Puntos: " + this.puntos, entorno.ancho()/2+160, entorno.alto()/4+30);
 	}
 }
